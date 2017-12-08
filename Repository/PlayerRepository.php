@@ -3,7 +3,6 @@
 namespace VideoGamesRecords\DwhBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use VideoGamesRecords\CoreBundle\Entity\Player as VgrPlayer;
 use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 
 class PlayerRepository extends EntityRepository
@@ -44,7 +43,7 @@ class PlayerRepository extends EntityRepository
                  CASE WHEN pc.rank > 29 THEN 30 ELSE pc.rank AS rank,
                  COUNT(pc.idPlayerChart) as nb
             FROM VideoGamesRecords\CoreBundle\Entity\PlayerChart pc
-            WHERE pc.rank > 3
+            WHERE pc.rank > 3            
             GROUP BY pc.idPlayer, rank");
 
         $result = $query->getResult();
@@ -66,7 +65,8 @@ class PlayerRepository extends EntityRepository
                    p.nbChart,
                    p.pointGame,
                    p.rankPointGame                   
-            FROM VideoGamesRecords\CoreBundle\Entity\Player p");
+            FROM VideoGamesRecords\CoreBundle\Entity\Player p
+            WHERE p.idPlayer <> 0");
 
 
 
@@ -75,7 +75,7 @@ class PlayerRepository extends EntityRepository
         foreach ($result as $row) {
             $idPlayer = $row['idPlayer'];
             $dwhPlayer = new DwhPlayer();
-            $dwhPlayer->setDate($date1);
+            $dwhPlayer->setDate($date1->format('Y-m-d'));
             $dwhPlayer->setFromArray($row);
             $dwhPlayer->setNbPostDay((isset($data1[$idPlayer])) ? $data1[$idPlayer] : 0);
             if (isset($data2[$idPlayer])) {
