@@ -2,6 +2,7 @@ SET NAMES 'utf8';
 SET CHARACTER SET utf8;
 
 RENAME TABLE membre TO dwh_player;
+RENAME TABLE jeu TO dwh_game;
 
 
 ALTER TABLE `dwh_player` DROP `nbForumMessage`;
@@ -52,3 +53,8 @@ ALTER TABLE dwh_player DROP INDEX rankPointJeu;
 
 ALTER TABLE `dwh_player` ADD INDEX `idxPlayer` (`idPlayer`);
 ALTER TABLE `dwh_player` ADD INDEX `idxDate` (`date`);
+
+
+ALTER TABLE `dwh_game` CHANGE `idJeu` `id` INT(13) NOT NULL;
+ALTER TABLE `dwh_game` CHANGE `nbPostJour` `nbPostDay` INT(13) NOT NULL DEFAULT '0';
+ALTER TABLE `dwh_game` DROP `nbRecord`;

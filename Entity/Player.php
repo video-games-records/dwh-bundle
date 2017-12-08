@@ -5,7 +5,6 @@ namespace VideoGamesRecords\DwhBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Date;
-use VideoGamesRecords\CoreBundle\Entity\Player as VgrPlayer;
 
 /**
  * Player
@@ -25,7 +24,8 @@ class Player
 
     /**
      * @var date
-     * @ORM\Column(name="date", type="date", nullable=false)
+     * @ORM\Column(name="date", type="string", length=10, nullable=false)
+     * @ORM\Id
      */
     private $date;
 
@@ -328,7 +328,7 @@ class Player
     /**
      * Set date
      *
-     * @param date $date
+     * @param string $date
      * @return Player
      */
     public function setDate($date)
@@ -340,7 +340,7 @@ class Player
 
     /**
      * Get date
-     * @return date
+     * @return string
      */
     public function getDate()
     {
@@ -457,6 +457,7 @@ class Player
     /**
      * Get chartRank
      *
+     * @param integer $rank
      * @return integer
      */
     public function getChartRank($rank)
