@@ -1,0 +1,6 @@
+services:
+    _defaults:
+        autowire: true
+    dwh.player:
+        class:    VideoGamesRecords\DwhBundle\Service\Player
+        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('VideoGamesRecordsDwhBundle:Player')"]
