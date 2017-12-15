@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class PlayerCommand extends DefaultCommand
 {
@@ -40,6 +41,16 @@ class PlayerCommand extends DefaultCommand
         switch ($function) {
             case 'maj':
                 $this->getContainer()->get('doctrine')->getRepository('VideoGamesRecordsDwhBundle:Player')->maj();
+                break;
+            case 'test':
+                $service = $this->getContainer()->get('dwh.player');
+                $service->getHtmlTop(
+                    new \DateTime('2017-12-04'),
+                    new \DateTime('2017-12-10'),
+                    new \DateTime('2017-12-11'),
+                    new \DateTime('2017-12-17'),
+                    20
+                );
                 break;
         }
         $this->end($output);
