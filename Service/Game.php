@@ -1,13 +1,13 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
-use VideoGamesRecords\DwhBundle\Repository\PlayerRepository;
+use VideoGamesRecords\DwhBundle\Repository\GameRepository;
 
-class Player
+class Game
 {
     private $repository;
 
-    public function __construct(PlayerRepository $repository)
+    public function __construct(GameRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -24,41 +24,41 @@ class Player
      */
     public function getTop($beginA, $endA, $beginB, $endB, $limit)
     {
-        $playerListA = $this->repository->getTop($beginA, $endA, $limit);
-        $playerListB = $this->repository->getTop($beginB, $endB, $limit);
+        $gameListA = $this->repository->getTop($beginA, $endA, $limit);
+        $gameListB = $this->repository->getTop($beginB, $endB, $limit);
 
         // Get old rank
         $oldRank = array();
-        foreach ($playerListB as $key => $row) {
-            $oldRank[$row['idPlayer']] = $key + 1;
+        foreach ($gameListB as $key => $row) {
+            $oldRank[$row['id']] = $key + 1;
         }
 
         $nbPostFromList = 0;
-        for ($i=0, $nb=count($playerListA) - 1; $i <= $nb; ++$i) {
-            $idPlayer = $playerListA[$i]['idPlayer'];
-            if (isset($oldRank[$idPlayer])) {
-                $playerListA[$i]['oldRank'] = $oldRank[$idPlayer];
+        for ($i=0, $nb=count($gameListA) - 1; $i <= $nb; ++$i) {
+            $idGame = $gameListA[$i]['id'];
+            if (isset($oldRank[$idGame])) {
+                $gameListA[$i]['oldRank'] = $oldRank[$idGame];
             } else {
-                $playerListA[$i]['oldRank'] = null;
+                $gameListA[$i]['oldRank'] = null;
             }
 
-            $nbPostFromList += $playerListA[$i]['nb'];
+            $nbPostFromList += $gameListA[$i]['nb'];
         }
 
-        $nbPlayer = $this->repository->getTotalNbPlayer($beginA, $endA);
+        $nbGame = $this->repository->getTotalNbGame($beginA, $endA);
         $nbTotalPost = $this->repository->getTotalNbPostDay($beginA, $endA);
 
-        $playerList = \VideoGamesRecords\CoreBundle\Tools\Ranking::addRank(
-            $playerListA,
+        $gameList = \VideoGamesRecords\CoreBundle\Tools\Ranking::addRank(
+            $gameListA,
             'rank',
             ['nb'],
             true
         );
 
         return array(
-            'playerList' => $playerList,
+            'gameList' => $gameList,
             'nbPostFromList' => $nbPostFromList,
-            'nbPlayer' => $nbPlayer,
+            'nbGame' => $nbGame,
             'nbTotalPost' => $nbTotalPost,
         );
     }
@@ -108,12 +108,12 @@ class Player
                 <td width="82" align="right">%d posts</td>
                 <td></td>
             </tr>';
-        foreach ($top['playerList'] as $row) {
-            $html .= sprintf($line, $row['rank'], 'URL', $row['idPlayer'], $row['nb'], $this->diff($row, count($top['playerList'])));
-        }
 
+        foreach ($top['gameList'] as $row) {
+            $html .= sprintf($line, $row['rank'], 'URL', $row['id'], $row['nb'], $this->diff($row, count($top['gameList'])));
+        }
         if ($top['nbTotalPost'] > $top['nbPostFromList']) {
-            $html .= sprintf($bottom1, count($top['playerList']) + 1, $top['nbGame'], $top['nbTotalPost'] - $top['nbPostFromList']);
+            $html .= sprintf($bottom1, count($top['gameList']) + 1, $top['nbGame'], $top['nbTotalPost'] - $top['nbPostFromList']);
         }
         $html .= sprintf($bottom2, $top['nbTotalPost']);
         $html .= '</tbody>';
@@ -124,14 +124,14 @@ class Player
 
     /**
      * @param $row
-     * @param $nbPlayer
+     * @param $nbGame
      * @return string
      */
-    private function diff($row, $nbPlayer)
+    private function diff($row, $nbGame)
     {
         if ($row['oldRank'] != null) {
             if ($row['rank'] < $row['oldRank']) {
-                if ($row['oldRank'] > $nbPlayer) {
+                if ($row['oldRank'] > $nbGame) {
                     $col = '<div class="blue">(N)</div>';
                 } else {
                     $col = sprintf('<div class="green">(+%d)</div>', $row['oldRank'] - $row['rank']);

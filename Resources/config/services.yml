@@ -4,3 +4,6 @@ services:
     dwh.player:
         class:    VideoGamesRecords\DwhBundle\Service\Player
         arguments: ["@=service('doctrine.orm.entity_manager').getRepository('VideoGamesRecordsDwhBundle:Player')"]
+    dwh.game:
+        class:    VideoGamesRecords\DwhBundle\Service\Game
+        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('VideoGamesRecordsDwhBundle:Game')"]
