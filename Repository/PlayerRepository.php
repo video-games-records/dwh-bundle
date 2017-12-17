@@ -106,6 +106,7 @@ class PlayerRepository extends EntityRepository
             FROM VideoGamesRecords\DwhBundle\Entity\Player p
             WHERE p.date BETWEEN :begin AND :end
             GROUP BY p.idPlayer
+            HAVING nb > 0
             ORDER BY nb DESC");
 
         $query->setParameter('begin', $begin);

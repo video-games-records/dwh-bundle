@@ -41,6 +41,16 @@ class GameCommand extends DefaultCommand
             case 'maj':
                 $this->getContainer()->get('doctrine')->getRepository('VideoGamesRecordsDwhBundle:Game')->maj();
                 break;
+            case 'test':
+                $service = $this->getContainer()->get('dwh.game');
+                $service->getHtmlTop(
+                    new \DateTime('2017-12-04'),
+                    new \DateTime('2017-12-10'),
+                    new \DateTime('2017-12-11'),
+                    new \DateTime('2017-12-17'),
+                    20
+                );
+                break;
         }
         $this->end($output);
         return true;
