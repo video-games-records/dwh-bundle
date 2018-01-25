@@ -3,7 +3,13 @@ services:
         autowire: true
     dwh.player:
         class:    VideoGamesRecords\DwhBundle\Service\Player
-        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('VideoGamesRecordsDwhBundle:Player')"]
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')",
+            "@=service('doctrine.orm.default_entity_manager')"
+            ]
     dwh.game:
         class:    VideoGamesRecords\DwhBundle\Service\Game
-        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('VideoGamesRecordsDwhBundle:Game')"]
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')",
+            "@=service('doctrine.orm.default_entity_manager')"
+            ]

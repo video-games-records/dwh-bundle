@@ -1,15 +1,49 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
-use VideoGamesRecords\DwhBundle\Repository\PlayerRepository;
+use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 
 class Player
 {
-    private $repository;
+    private $em1;
+    private $em2;
 
-    public function __construct(PlayerRepository $repository)
+    public function __construct(\Doctrine\ORM\EntityManager $em1, \Doctrine\ORM\EntityManager $em2)
     {
-        $this->repository = $repository;
+        $this->em1 = $em1;
+        $this->em2 = $em2;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function maj()
+    {
+        $date1 = new \DateTime();
+        $date1->sub(new \DateInterval('P1D'));
+        $date2 = new \DateTime();
+
+        $data1 = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Player')->getNbPostDay($date1, $date2);
+
+        $data2 = $this->em2->getRepository('VideoGamesRecordsCoreBundle:PlayerChart')->getDataRank();
+
+        $list = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Player')->getDataForDwh();
+
+        foreach ($list as $row) {
+            $idPlayer = $row['idPlayer'];
+            $dwhPlayer = new DwhPlayer();
+            $dwhPlayer->setDate($date1->format('Y-m-d'));
+            $dwhPlayer->setFromArray($row);
+            $dwhPlayer->setNbPostDay((isset($data1[$idPlayer])) ? $data1[$idPlayer] : 0);
+            if (isset($data2[$idPlayer])) {
+                foreach ($data2[$idPlayer] as $key => $value) {
+                    $dwhPlayer->setChartRank($key, $value);
+                }
+            }
+            $this->em1->persist($dwhPlayer);
+        }
+
+        $this->em1->flush();
     }
 
     /**

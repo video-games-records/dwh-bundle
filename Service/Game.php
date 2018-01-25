@@ -1,15 +1,48 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
-use VideoGamesRecords\DwhBundle\Repository\GameRepository;
+use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 
 class Game
 {
-    private $repository;
+    private $em1;
+    private $em2;
 
-    public function __construct(GameRepository $repository)
+    public function __construct(\Doctrine\ORM\EntityManager $em1, \Doctrine\ORM\EntityManager $em2)
     {
-        $this->repository = $repository;
+        $this->em1 = $em1;
+        $this->em2 = $em2;
+    }
+
+
+    /**
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function maj()
+    {
+        $date1 = new \DateTime();
+        $date1->sub(new \DateInterval('P1D'));
+        $date2 = new \DateTime();
+
+        $data1 = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Game')->getNbPostDay($date1, $date2);
+
+        $games = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Game')->findAll();
+
+        foreach ($games as $game) {
+            $id = $game->getId();
+            $object = new DwhGame();
+            $object->setDate($date1->format('Y-m-d'));
+            $object->setFromArray(
+                array(
+                    'id' => $game->getId(),
+                    'nbPost' => $game->getNbPost(),
+                )
+            );
+            $object->setNbPostDay((isset($data1[$id])) ? $data1[$id] : 0);
+            $this->em1->persist($object);
+        }
+        $this->em1->flush();
     }
 
     /**
@@ -24,8 +57,8 @@ class Game
      */
     public function getTop($beginA, $endA, $beginB, $endB, $limit)
     {
-        $gameListA = $this->repository->getTop($beginA, $endA, $limit);
-        $gameListB = $this->repository->getTop($beginB, $endB, $limit);
+        $gameListA = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginA, $endA, $limit);
+        $gameListB = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginB, $endB, $limit);
 
         // Get old rank
         $oldRank = array();
@@ -45,8 +78,8 @@ class Game
             $nbPostFromList += $gameListA[$i]['nb'];
         }
 
-        $nbGame = $this->repository->getTotalNbGame($beginA, $endA);
-        $nbTotalPost = $this->repository->getTotalNbPostDay($beginA, $endA);
+        $nbGame = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbGame($beginA, $endA);
+        $nbTotalPost = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbPostDay($beginA, $endA);
 
         $gameList = \VideoGamesRecords\CoreBundle\Tools\Ranking::addRank(
             $gameListA,
