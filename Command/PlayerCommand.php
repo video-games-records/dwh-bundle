@@ -40,7 +40,8 @@ class PlayerCommand extends DefaultCommand
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $this->getContainer()->get('doctrine')->getRepository('VideoGamesRecordsDwhBundle:Player')->maj();
+                $service = $this->getContainer()->get('dwh.player');
+                $service->maj();
                 break;
             case 'test':
                 $service = $this->getContainer()->get('dwh.player');

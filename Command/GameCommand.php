@@ -39,7 +39,8 @@ class GameCommand extends DefaultCommand
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $this->getContainer()->get('doctrine')->getRepository('VideoGamesRecordsDwhBundle:Game')->maj();
+                $service = $this->getContainer()->get('dwh.game');
+                $service->maj();
                 break;
             case 'test':
                 $service = $this->getContainer()->get('dwh.game');
