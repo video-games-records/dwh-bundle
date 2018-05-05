@@ -7,11 +7,13 @@ class Player
 {
     private $em1;
     private $em2;
+    private $playerRepository;
 
     public function __construct(\Doctrine\ORM\EntityManager $em1, \Doctrine\ORM\EntityManager $em2)
     {
         $this->em1 = $em1;
         $this->em2 = $em2;
+        $this->playerRepository = $em1->getRepository('VideoGamesRecordsDwhBundle:Player');
     }
 
     /**
@@ -47,19 +49,18 @@ class Player
     }
 
     /**
-     * @param DateTime $beginA
-     * @param DateTime $endA
-     * @param DateTime $beginB
-     * @param DateTime $endB
+     * @param \DateTime $beginA
+     * @param \DateTime $endA
+     * @param \DateTime $beginB
+     * @param \DateTime $endB
      * @param integer $limit
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
      * @return array
      */
     public function getTop($beginA, $endA, $beginB, $endB, $limit)
     {
-        $playerListA = $this->repository->getTop($beginA, $endA, $limit);
-        $playerListB = $this->repository->getTop($beginB, $endB, $limit);
+        $playerListA = $this->playerRepository->getTop($beginA, $endA, $limit);
+        $playerListB = $this->playerRepository->getTop($beginB, $endB, $limit);
 
         // Get old rank
         $oldRank = array();
@@ -79,8 +80,8 @@ class Player
             $nbPostFromList += $playerListA[$i]['nb'];
         }
 
-        $nbPlayer = $this->repository->getTotalNbPlayer($beginA, $endA);
-        $nbTotalPost = $this->repository->getTotalNbPostDay($beginA, $endA);
+        $nbPlayer = $this->playerRepository->getTotalNbPlayer($beginA, $endA);
+        $nbTotalPost = $this->playerRepository->getTotalNbPostDay($beginA, $endA);
 
         $playerList = \VideoGamesRecords\CoreBundle\Tools\Ranking::addRank(
             $playerListA,
@@ -98,14 +99,13 @@ class Player
     }
 
     /**
-     * @param DateTime $beginA
-     * @param DateTime $endA
-     * @param DateTime $beginB
-     * @param DateTime $endB
+     * @param \DateTime $beginA
+     * @param \DateTime $endA
+     * @param \DateTime $beginB
+     * @param \DateTime $endB
      * @param integer $limit
+     *
      * @return string
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getHtmlTop($beginA, $endA, $beginB, $endB, $limit)
     {
@@ -163,7 +163,7 @@ class Player
      */
     private function diff($row, $nbPlayer)
     {
-        if ($row['oldRank'] != null) {
+        if ($row['oldRank'] !== null) {
             if ($row['rank'] < $row['oldRank']) {
                 if ($row['oldRank'] > $nbPlayer) {
                     $col = '<div class="blue">(N)</div>';

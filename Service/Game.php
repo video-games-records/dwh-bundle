@@ -14,7 +14,6 @@ class Game
         $this->em2 = $em2;
     }
 
-
     /**
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -46,10 +45,10 @@ class Game
     }
 
     /**
-     * @param DateTime $beginA
-     * @param DateTime $endA
-     * @param DateTime $beginB
-     * @param DateTime $endB
+     * @param \DateTime $beginA
+     * @param \DateTime $endA
+     * @param \DateTime $beginB
+     * @param \DateTime $endB
      * @param integer $limit
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -97,10 +96,10 @@ class Game
     }
 
     /**
-     * @param DateTime $beginA
-     * @param DateTime $endA
-     * @param DateTime $beginB
-     * @param DateTime $endB
+     * @param \DateTime $beginA
+     * @param \DateTime $endA
+     * @param \DateTime $beginB
+     * @param \DateTime $endB
      * @param integer $limit
      * @return string
      * @throws \Doctrine\ORM\NoResultException

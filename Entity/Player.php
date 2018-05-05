@@ -3,8 +3,6 @@
 namespace VideoGamesRecords\DwhBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Player
@@ -23,7 +21,7 @@ class Player
     private $idPlayer;
 
     /**
-     * @var date
+     * @var string
      * @ORM\Column(name="date", type="string", length=10, nullable=false)
      * @ORM\Id
      */
@@ -631,9 +629,9 @@ class Player
     }
 
     /**
-     * @param $row
+     * @param array $row
      */
-    public function setFromArray($row)
+    public function setFromArray(array $row)
     {
         foreach ($row as $key => $value) {
             $this->$key = $value;
