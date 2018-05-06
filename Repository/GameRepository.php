@@ -3,14 +3,12 @@
 namespace VideoGamesRecords\DwhBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 
 class GameRepository extends EntityRepository
 {
-
     /**
-     * @param DateTime $begin
-     * @param DateTime $end
+     * @param \DateTime $begin
+     * @param \DateTime $end
      * @param integer $limit
      * @return array
      */
@@ -33,8 +31,8 @@ class GameRepository extends EntityRepository
     }
 
     /**
-     * @param DateTime $begin
-     * @param DateTime $end
+     * @param \DateTime $begin
+     * @param \DateTime $end
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -54,8 +52,8 @@ class GameRepository extends EntityRepository
     }
 
     /**
-     * @param DateTime $begin
-     * @param DateTime $end
+     * @param \DateTime $begin
+     * @param \DateTime $end
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
