@@ -32,6 +32,7 @@ class PlayerCommand extends DefaultCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return bool
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -41,6 +42,10 @@ class PlayerCommand extends DefaultCommand
             case 'maj':
                 $service = $this->getContainer()->get('dwh.player');
                 $service->maj();
+                break;
+            case 'purge':
+                $service = $this->getContainer()->get('dwh.player');
+                $service->purge();
                 break;
             case 'test':
                 $service = $this->getContainer()->get('dwh.player');

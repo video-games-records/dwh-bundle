@@ -5,15 +5,15 @@ use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 
 class Player
 {
-    private $em1;
-    private $em2;
+    private $dwhEntityManager;
+    private $defaultEntityManager;
     private $playerRepository;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em1, \Doctrine\ORM\EntityManager $em2)
+    public function __construct(\Doctrine\ORM\EntityManager $dwhEntityManager, \Doctrine\ORM\EntityManager $defaultEntityManager)
     {
-        $this->em1 = $em1;
-        $this->em2 = $em2;
-        $this->playerRepository = $em1->getRepository('VideoGamesRecordsDwhBundle:Player');
+        $this->dwhEntityManager = $dwhEntityManager;
+        $this->defaultEntityManager = $defaultEntityManager;
+        $this->playerRepository = $dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Player');
     }
 
     /**
@@ -25,11 +25,11 @@ class Player
         $date1->sub(new \DateInterval('P1D'));
         $date2 = new \DateTime();
 
-        $data1 = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Player')->getNbPostDay($date1, $date2);
+        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Player')->getNbPostDay($date1, $date2);
 
-        $data2 = $this->em2->getRepository('VideoGamesRecordsCoreBundle:PlayerChart')->getDataRank();
+        $data2 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:PlayerChart')->getDataRank();
 
-        $list = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Player')->getDataForDwh();
+        $list = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Player')->getDataForDwh();
 
         foreach ($list as $row) {
             $idPlayer = $row['idPlayer'];
@@ -42,10 +42,24 @@ class Player
                     $dwhPlayer->setChartRank($key, $value);
                 }
             }
-            $this->em1->persist($dwhPlayer);
+            $this->dwhEntityManager->persist($dwhPlayer);
         }
 
-        $this->em1->flush();
+        $this->dwhEntityManager->flush();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function purge()
+    {
+        $date = new \DateTime();
+        $date = $date->sub(\DateInterval::createFromDateString('3 years'));
+
+        //----- delete
+        $query = $this->dwhEntityManager->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Player p WHERE p.date < :date');
+        $query->setParameter('date', $date->format('Y-m-d'));
+        $query->execute();
     }
 
     /**
