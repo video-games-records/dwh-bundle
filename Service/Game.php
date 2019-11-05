@@ -5,13 +5,13 @@ use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 
 class Game
 {
-    private $em1;
-    private $em2;
+    private $dwhEntityManager;
+    private $defaultEntityManager;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em1, \Doctrine\ORM\EntityManager $em2)
+    public function __construct(\Doctrine\ORM\EntityManager $dwhEntityManager, \Doctrine\ORM\EntityManager $defaultEntityManager)
     {
-        $this->em1 = $em1;
-        $this->em2 = $em2;
+        $this->dwhEntityManager = $dwhEntityManager;
+        $this->defaultEntityManager = $defaultEntityManager;
     }
 
     /**
@@ -24,9 +24,9 @@ class Game
         $date1->sub(new \DateInterval('P1D'));
         $date2 = new \DateTime();
 
-        $data1 = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Game')->getNbPostDay($date1, $date2);
+        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Game')->getNbPostDay($date1, $date2);
 
-        $games = $this->em2->getRepository('VideoGamesRecordsCoreBundle:Game')->findAll();
+        $games = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Game')->findAll();
 
         foreach ($games as $game) {
             $id = $game->getId();
@@ -39,9 +39,23 @@ class Game
                 )
             );
             $object->setNbPostDay((isset($data1[$id])) ? $data1[$id] : 0);
-            $this->em1->persist($object);
+            $this->dwhEntityManager->persist($object);
         }
-        $this->em1->flush();
+        $this->dwhEntityManager->flush();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function purge()
+    {
+        $date = new \DateTime();
+        $date = $date->sub(\DateInterval::createFromDateString('3 years'));
+
+        //----- delete
+        $query = $this->dwhEntityManager->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Game g WHERE g.date < :date');
+        $query->setParameter('date', $date->format('Y-m-d'));
+        $query->execute();
     }
 
     /**
@@ -56,8 +70,8 @@ class Game
      */
     public function getTop($beginA, $endA, $beginB, $endB, $limit)
     {
-        $gameListA = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginA, $endA, $limit);
-        $gameListB = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginB, $endB, $limit);
+        $gameListA = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginA, $endA, $limit);
+        $gameListB = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginB, $endB, $limit);
 
         // Get old rank
         $oldRank = array();
@@ -77,8 +91,8 @@ class Game
             $nbPostFromList += $gameListA[$i]['nb'];
         }
 
-        $nbGame = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbGame($beginA, $endA);
-        $nbTotalPost = $this->em1->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbPostDay($beginA, $endA);
+        $nbGame = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbGame($beginA, $endA);
+        $nbTotalPost = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbPostDay($beginA, $endA);
 
         $gameList = \VideoGamesRecords\CoreBundle\Tools\Ranking::addRank(
             $gameListA,
