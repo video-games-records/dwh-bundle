@@ -13,3 +13,9 @@ services:
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
             ]
+    dwh.team:
+        class:    VideoGamesRecords\DwhBundle\Service\Team
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')",
+            "@=service('doctrine.orm.default_entity_manager')"
+            ]
