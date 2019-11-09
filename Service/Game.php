@@ -2,6 +2,7 @@
 namespace VideoGamesRecords\DwhBundle\Service;
 
 use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
+use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
 
 class Game
 {
@@ -59,137 +60,61 @@ class Game
     }
 
     /**
-     * @param \DateTime $beginA
-     * @param \DateTime $endA
-     * @param \DateTime $beginB
-     * @param \DateTime $endB
-     * @param integer $limit
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @param $date1Begin
+     * @param $date1End
+     * @param $date2Begin
+     * @param $date2End
+     * @param $limit
      * @return array
      */
-    public function getTop($beginA, $endA, $beginB, $endB, $limit)
+    public function getTop(\DateTime $date1Begin, \DateTime $date1End, \DateTime $date2Begin, \DateTime $date2End, $limit = 20)
     {
-        $gameListA = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginA, $endA, $limit);
-        $gameListB = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop($beginB, $endB, $limit);
+        $gameList1 = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop(
+            $date1Begin,
+            $date1End,
+            $limit
+        );
+        $gameList2 = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop(
+            $date2Begin,
+            $date2End,
+            $limit
+        );
 
         // Get old rank
         $oldRank = array();
-        foreach ($gameListB as $key => $row) {
+        foreach ($gameList2 as $key => $row) {
             $oldRank[$row['id']] = $key + 1;
         }
 
         $nbPostFromList = 0;
-        for ($i=0, $nb=count($gameListA) - 1; $i <= $nb; ++$i) {
-            $idGame = $gameListA[$i]['id'];
+        for ($i=0, $nb=count($gameList1) - 1; $i <= $nb; ++$i) {
+            $idGame = $gameList1[$i]['id'];
             if (isset($oldRank[$idGame])) {
-                $gameListA[$i]['oldRank'] = $oldRank[$idGame];
+                $gameList1[$i]['oldRank'] = $oldRank[$idGame];
             } else {
-                $gameListA[$i]['oldRank'] = null;
+                $gameList1[$i]['oldRank'] = null;
             }
 
-            $nbPostFromList += $gameListA[$i]['nb'];
+            $game = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Game')->find($idGame);
+            $gameList1[$i]['game'] = $game;
+            $nbPostFromList += $gameList1[$i]['nb'];
         }
 
-        $nbGame = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbGame($beginA, $endA);
-        $nbTotalPost = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbPostDay($beginA, $endA);
+        $nbGame = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbGame($date1Begin, $date1End);
+        $nbTotalPost = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTotalNbPostDay($date1Begin, $date1End);
 
-        $gameList = \VideoGamesRecords\CoreBundle\Tools\Ranking::addRank(
-            $gameListA,
+        $gameList = ToolsRanking::addRank(
+            $gameList1,
             'rank',
             ['nb'],
             true
         );
 
         return array(
-            'gameList' => $gameList,
+            'list' => $gameList,
             'nbPostFromList' => $nbPostFromList,
-            'nbGame' => $nbGame,
+            'nbItem' => $nbGame,
             'nbTotalPost' => $nbTotalPost,
         );
-    }
-
-    /**
-     * @param \DateTime $beginA
-     * @param \DateTime $endA
-     * @param \DateTime $beginB
-     * @param \DateTime $endB
-     * @param integer $limit
-     * @return string
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getHtmlTop($beginA, $endA, $beginB, $endB, $limit)
-    {
-        $top = $this->getTop($beginA, $endA, $beginB, $endB, $limit);
-
-        $html = '<table border="0">';
-        $html .= '<tbody>';
-
-
-        $line = '
-            <tr>
-                <td align="center">%d</td>
-                <td class="center" width="344">
-		            <a href="%s">%s</a>
-	            </td>
-	            <td width="82" align="right">%s posts</td>
-	            <td width="40" align="center">
-	             %s
-	            </td>
-	        </tr>';
-
-        $bottom1 = '
-            <tr>
-                <td align="right">%d - %d</td>
-                <td width="334"></td>
-                <td width="82" align="right">%d posts</td>
-                <td></td>
-            </tr>';
-
-        $bottom2 = '  
-            <tr>
-                <td align="right">Total</td>
-                <td width="334"></td>
-                <td width="82" align="right">%d posts</td>
-                <td></td>
-            </tr>';
-
-        foreach ($top['gameList'] as $row) {
-            $html .= sprintf($line, $row['rank'], 'URL', $row['id'], $row['nb'], $this->diff($row, count($top['gameList'])));
-        }
-        if ($top['nbTotalPost'] > $top['nbPostFromList']) {
-            $html .= sprintf($bottom1, count($top['gameList']) + 1, $top['nbGame'], $top['nbTotalPost'] - $top['nbPostFromList']);
-        }
-        $html .= sprintf($bottom2, $top['nbTotalPost']);
-        $html .= '</tbody>';
-        $html .= '</table>';
-
-        return $html;
-    }
-
-    /**
-     * @param $row
-     * @param $nbGame
-     * @return string
-     */
-    private function diff($row, $nbGame)
-    {
-        if ($row['oldRank'] != null) {
-            if ($row['rank'] < $row['oldRank']) {
-                if ($row['oldRank'] > $nbGame) {
-                    $col = '<div class="blue">(N)</div>';
-                } else {
-                    $col = sprintf('<div class="green">(+%d)</div>', $row['oldRank'] - $row['rank']);
-                }
-            } elseif ($row['rank'] > $row['oldRank']) {
-                $col = sprintf('<div class="red">(-%d)</div>', $row['rank'] - $row['oldRank']);
-            } else {
-                $col = '<div class="grey">(=)</div>';
-            }
-        } else {
-            $col = '<div class="blue">(N)</div>';
-        }
-        return $col;
     }
 }

@@ -1,20 +1,26 @@
 services:
     _defaults:
         autowire: true
-    dwh.player:
+    VideoGamesRecords\DwhBundle\Service\Player:
         class:    VideoGamesRecords\DwhBundle\Service\Player
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
             ]
-    dwh.game:
+    VideoGamesRecords\DwhBundle\Service\Game:
         class:    VideoGamesRecords\DwhBundle\Service\Game
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
             ]
-    dwh.team:
+    VideoGamesRecords\DwhBundle\Service\Team:
         class:    VideoGamesRecords\DwhBundle\Service\Team
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')",
+            "@=service('doctrine.orm.default_entity_manager')"
+            ]
+    VideoGamesRecords\DwhBundle\Service\Article:
+        class:    VideoGamesRecords\DwhBundle\Service\Article
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
