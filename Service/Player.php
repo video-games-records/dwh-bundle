@@ -88,12 +88,12 @@ class Player
         // Get old rank
         $oldRank = array();
         foreach ($playerList2 as $key => $row) {
-            $oldRank[$row['idPlayer']] = $key + 1;
+            $oldRank[$row['id']] = $key + 1;
         }
 
         $nbPostFromList = 0;
         for ($i=0, $nb=count($playerList1) - 1; $i <= $nb; ++$i) {
-            $idPlayer = $playerList1[$i]['idPlayer'];
+            $idPlayer = $playerList1[$i]['id'];
             if (isset($oldRank[$idPlayer])) {
                 $playerList1[$i]['oldRank'] = $oldRank[$idPlayer];
             } else {

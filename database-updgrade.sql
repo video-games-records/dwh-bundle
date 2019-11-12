@@ -52,7 +52,7 @@ ALTER TABLE `dwh_player` CHANGE `rank30` `chartRank30` INT(11) NOT NULL DEFAULT 
 ALTER TABLE dwh_player DROP INDEX pointJeu;
 ALTER TABLE dwh_player DROP INDEX rankPointJeu;
 
-ALTER TABLE `dwh_player` ADD INDEX `idxPlayer` (`idPlayer`);
+ALTER TABLE `dwh_player` ADD INDEX `idxPlayer` (`id`);
 ALTER TABLE `dwh_player` ADD INDEX `idxDate` (`date`);
 
 

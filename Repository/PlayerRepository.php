@@ -15,11 +15,11 @@ class PlayerRepository extends EntityRepository
     public function getTop($begin, $end, $limit = 20)
     {
         $query = $this->_em->createQuery("
-            SELECT p.idPlayer,
+            SELECT p.id,
                    SUM(p.nbPostDay) as nb      
             FROM VideoGamesRecords\DwhBundle\Entity\Player p
             WHERE p.date BETWEEN :begin AND :end
-            GROUP BY p.idPlayer
+            GROUP BY p.id
             HAVING nb > 0
             ORDER BY nb DESC");
 
@@ -40,7 +40,7 @@ class PlayerRepository extends EntityRepository
     public function getTotalNbPlayer($begin, $end)
     {
         $query = $this->_em->createQuery("
-            SELECT COUNT(DISTINCT(p.idPlayer)) as nb
+            SELECT COUNT(DISTINCT(p.id)) as nb
             FROM VideoGamesRecords\DwhBundle\Entity\Player p
             WHERE p.date BETWEEN :begin AND :end
             AND p.nbPostDay > 0");
