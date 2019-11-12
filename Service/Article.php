@@ -29,6 +29,7 @@ class Article
      */
     public function postTopWeek($day)
     {
+        $day = '2017-01-01';
         $date1Begin = new \DateTime($day);
         $date1End = new \DateTime($day);
 

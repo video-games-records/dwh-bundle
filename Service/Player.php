@@ -26,14 +26,14 @@ class Player
         $date1->sub(new \DateInterval('P1D'));
         $date2 = new \DateTime();
 
-        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Player')->getNbPostDay($date1, $date2);
+        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:PlayerChart')->getNbPostDay($date1, $date2);
 
         $data2 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:PlayerChart')->getDataRank();
 
         $list = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Player')->getDataForDwh();
 
         foreach ($list as $row) {
-            $idPlayer = $row['idPlayer'];
+            $idPlayer = $row['id'];
             $dwhPlayer = new DwhPlayer();
             $dwhPlayer->setDate($date1->format('Y-m-d'));
             $dwhPlayer->setFromArray($row);
@@ -88,12 +88,12 @@ class Player
         // Get old rank
         $oldRank = array();
         foreach ($playerList2 as $key => $row) {
-            $oldRank[$row['idPlayer']] = $key + 1;
+            $oldRank[$row['id']] = $key + 1;
         }
 
         $nbPostFromList = 0;
         for ($i=0, $nb=count($playerList1) - 1; $i <= $nb; ++$i) {
-            $idPlayer = $playerList1[$i]['idPlayer'];
+            $idPlayer = $playerList1[$i]['id'];
             if (isset($oldRank[$idPlayer])) {
                 $playerList1[$i]['oldRank'] = $oldRank[$idPlayer];
             } else {

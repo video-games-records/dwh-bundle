@@ -9,7 +9,7 @@ RENAME TABLE team TO dwh_team;
 ALTER TABLE `dwh_player` DROP `nbForumMessage`;
 ALTER TABLE `dwh_player` DROP `connect`;
 ALTER TABLE `dwh_player` DROP `pointVGR`;
-ALTER TABLE `dwh_player` CHANGE `idMembre` `idPlayer` INT(13) NOT NULL;
+ALTER TABLE `dwh_player` CHANGE `idMembre` `id` INT(13) NOT NULL;
 ALTER TABLE `dwh_player` CHANGE `rankMedals` `rankMedal` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE `dwh_player` CHANGE `pointRecord` `pointChart` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE `dwh_player` CHANGE `pointJeu` `pointGame` INT(11) NOT NULL;
@@ -52,7 +52,7 @@ ALTER TABLE `dwh_player` CHANGE `rank30` `chartRank30` INT(11) NOT NULL DEFAULT 
 ALTER TABLE dwh_player DROP INDEX pointJeu;
 ALTER TABLE dwh_player DROP INDEX rankPointJeu;
 
-ALTER TABLE `dwh_player` ADD INDEX `idxPlayer` (`idPlayer`);
+ALTER TABLE `dwh_player` ADD INDEX `idxPlayer` (`id`);
 ALTER TABLE `dwh_player` ADD INDEX `idxDate` (`date`);
 
 
