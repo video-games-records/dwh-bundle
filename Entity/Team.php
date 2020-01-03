@@ -5,20 +5,20 @@ namespace VideoGamesRecords\DwhBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Player
+ * Team
  *
- * @ORM\Table(name="dwh_player", indexes={@ORM\Index(name="idxPlayer", columns={"idPlayer"}), @ORM\Index(name="idxDate", columns={"date"})})
- * @ORM\Entity(repositoryClass="VideoGamesRecords\DwhBundle\Repository\PlayerRepository")
+ * @ORM\Table(name="dwh_team", indexes={@ORM\Index(name="idxTeam", columns={"idTeam"}), @ORM\Index(name="idxDate", columns={"date"})})
+ * @ORM\Entity(repositoryClass="VideoGamesRecords\DwhBundle\Repository\TeamRepository")
  */
-class Player
+class Team
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="idTeam", type="integer")
      * @ORM\Id
      */
-    private $id;
+    private $idTeam;
 
     /**
      * @var string
@@ -58,195 +58,6 @@ class Player
     /**
      * @var integer
      *
-     * @ORM\Column(name="chartRank4", type="integer", nullable=true)
-     */
-    private $chartRank4 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank5", type="integer", nullable=true)
-     */
-    private $chartRank5 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank6", type="integer", nullable=true)
-     */
-    private $chartRank6 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank7", type="integer", nullable=true)
-     */
-    private $chartRank7 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank8", type="integer", nullable=true)
-     */
-    private $chartRank8 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank9", type="integer", nullable=true)
-     */
-    private $chartRank9 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank10", type="integer", nullable=true)
-     */
-    private $chartRank10 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank11", type="integer", nullable=true)
-     */
-    private $chartRank11 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank12", type="integer", nullable=true)
-     */
-    private $chartRank12 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank13", type="integer", nullable=true)
-     */
-    private $chartRank13 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank14", type="integer", nullable=true)
-     */
-    private $chartRank14 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank15", type="integer", nullable=true)
-     */
-    private $chartRank15 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank16", type="integer", nullable=true)
-     */
-    private $chartRank16 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank17", type="integer", nullable=true)
-     */
-    private $chartRank17 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank18", type="integer", nullable=true)
-     */
-    private $chartRank18 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank19", type="integer", nullable=true)
-     */
-    private $chartRank19 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank20", type="integer", nullable=true)
-     */
-    private $chartRank20 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank21", type="integer", nullable=true)
-     */
-    private $chartRank21 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank22", type="integer", nullable=true)
-     */
-    private $chartRank22 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank23", type="integer", nullable=true)
-     */
-    private $chartRank23 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank24", type="integer", nullable=true)
-     */
-    private $chartRank24 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank25", type="integer", nullable=true)
-     */
-    private $chartRank25 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank26", type="integer", nullable=true)
-     */
-    private $chartRank26 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank27", type="integer", nullable=true)
-     */
-    private $chartRank27 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank28", type="integer", nullable=true)
-     */
-    private $chartRank28 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank29", type="integer", nullable=true)
-     */
-    private $chartRank29 = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chartRank30", type="integer", nullable=true)
-     */
-    private $chartRank30 = 0;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="pointChart", type="integer", nullable=false)
      */
     private $pointChart = 0;
@@ -268,9 +79,9 @@ class Player
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbChart", type="integer", nullable=false)
+     * @ORM\Column(name="rankBadge", type="integer", nullable=true)
      */
-    private $nbChart = 0;
+    private $rankBadge;
 
     /**
      * @var integer
@@ -294,40 +105,54 @@ class Player
     private $nbPostDay = 0;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="pointBadge", type="integer", nullable=false)
+     */
+    private $pointBadge = 0;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbMasterBadge", type="integer", nullable=false)
+     */
+    private $nbMasterBadge = 0;
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return sprintf('%s [%s]', $this->id, $this->id);
+        return sprintf('%s [%s]', $this->idTeam, $this->idTeam);
     }
 
     /**
-     * Set id
+     * Set idTeam
      *
-     * @param integer $id
-     * @return Player
+     * @param integer $idTeam
+     * @return Team
      */
-    public function setId($id)
+    public function setIdTeam($idTeam)
     {
-        $this->id = $id;
+        $this->idTeam = $idTeam;
         return $this;
     }
 
     /**
-     * Get id
+     * Get idTeam
      *
      * @return integer
      */
-    public function getId()
+    public function getIdTeam()
     {
-        return $this->id;
+        return $this->idTeam;
     }
 
     /**
      * Set date
      *
      * @param string $date
-     * @return Player
+     * @return Team
      */
     public function setDate($date)
     {
@@ -349,7 +174,7 @@ class Player
      * Set chartRank0
      *
      * @param integer $chartRank0
-     * @return Player
+     * @return Team
      */
     public function setChartRank0($chartRank0)
     {
@@ -372,7 +197,7 @@ class Player
      * Set chartRank1
      *
      * @param integer $chartRank1
-     * @return Player
+     * @return Team
      */
     public function setChartRank1($chartRank1)
     {
@@ -395,7 +220,7 @@ class Player
      * Set chartRank2
      *
      * @param integer $chartRank2
-     * @return Player
+     * @return Team
      */
     public function setChartRank2($chartRank2)
     {
@@ -418,7 +243,7 @@ class Player
      * Set chartRank3
      *
      * @param integer $chartRank3
-     * @return Player
+     * @return Team
      */
     public function setChartRank3($chartRank3)
     {
@@ -468,7 +293,7 @@ class Player
      * Set pointChart
      *
      * @param integer $pointChart
-     * @return Player
+     * @return Team
      */
     public function setPointChart($pointChart)
     {
@@ -492,7 +317,7 @@ class Player
      * Set rankPointChart
      *
      * @param integer $rankPointChart
-     * @return Player
+     * @return Team
      */
     public function setRankPointChart($rankPointChart)
     {
@@ -515,7 +340,7 @@ class Player
      * Set rankMedal
      *
      * @param integer $rankMedal
-     * @return Player
+     * @return Team
      */
     public function setRankMedal($rankMedal)
     {
@@ -534,36 +359,34 @@ class Player
         return $this->rankMedal;
     }
 
-
-
     /**
-     * Set nbChart
+     * Set rankBadge
      *
-     * @param integer $nbChart
-     * @return Player
+     * @param integer $rankBadge
+     * @return Team
      */
-    public function setNbChart($nbChart)
+    public function setRankBadge($rankBadge)
     {
-        $this->nbChart = $nbChart;
+        $this->rankBadge = $rankBadge;
 
         return $this;
     }
 
     /**
-     * Get nbChart
+     * Get rankBadge
      *
      * @return integer
      */
-    public function getNbChart()
+    public function getRankBadge()
     {
-        return $this->nbChart;
+        return $this->rankBadge;
     }
 
     /**
      * Set pointGame
      *
      * @param integer $pointGame
-     * @return Player
+     * @return Team
      */
     public function setPointGame($pointGame)
     {
@@ -586,7 +409,7 @@ class Player
      * Set rankPointGame
      *
      * @param integer $rankPointGame
-     * @return Player
+     * @return Team
      */
     public function setRankPointGame($rankPointGame)
     {
@@ -609,7 +432,7 @@ class Player
      * Set nbPostDay
      *
      * @param integer $nbPostDay
-     * @return Player
+     * @return Team
      */
     public function setNbPostDay($nbPostDay)
     {
@@ -626,6 +449,52 @@ class Player
     public function getNbPostDay()
     {
         return $this->nbPostDay;
+    }
+
+    /**
+     * Set pointBadge
+     *
+     * @param integer $pointBadge
+     * @return Team
+     */
+    public function setNPointBadge($pointBadge)
+    {
+        $this->pointBadge = $pointBadge;
+
+        return $this;
+    }
+
+    /**
+     * Get pointBadge
+     *
+     * @return integer
+     */
+    public function getPointBadge()
+    {
+        return $this->pointBadge;
+    }
+
+    /**
+     * Set nbMasterBadge
+     *
+     * @param integer $nbMasterBadge
+     * @return Team
+     */
+    public function setNbMasterBadge($nbMasterBadge)
+    {
+        $this->nbMasterBadge = $nbMasterBadge;
+
+        return $this;
+    }
+
+    /**
+     * Get nbMasterBadge
+     *
+     * @return integer
+     */
+    public function getNbMasterBadge()
+    {
+        return $this->nbMasterBadge;
     }
 
     /**

@@ -32,6 +32,7 @@ class PlayerCommand extends DefaultCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return bool
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -39,18 +40,12 @@ class PlayerCommand extends DefaultCommand
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $service = $this->getContainer()->get('dwh.player');
+                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Player');
                 $service->maj();
                 break;
-            case 'test':
-                $service = $this->getContainer()->get('dwh.player');
-                $service->getHtmlTop(
-                    new \DateTime('2017-12-04'),
-                    new \DateTime('2017-12-10'),
-                    new \DateTime('2017-12-11'),
-                    new \DateTime('2017-12-17'),
-                    20
-                );
+            case 'purge':
+                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Player');
+                $service->purge();
                 break;
         }
         $this->end($output);

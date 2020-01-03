@@ -7,13 +7,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GameCommand extends DefaultCommand
+class ArticleCommand extends DefaultCommand
 {
     protected function configure()
     {
         $this
-            ->setName('vgr-dwh:game')
-            ->setDescription('Command to update table vgr_dwh.game')
+            ->setName('vgr-dwh:article')
+            ->setDescription('Command post article')
             ->addArgument(
                 'function',
                 InputArgument::REQUIRED,
@@ -44,14 +44,18 @@ class GameCommand extends DefaultCommand
     {
         $this->init($input);
         $function = $input->getArgument('function');
+        $date = $input->getOption('date');
+        if ($date === null) {
+            $date = date('Y-m-d');
+        }
         switch ($function) {
-            case 'maj':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Game');
-                $service->maj();
+            case 'top-week':
+                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Article');
+                $service->postTopWeek($date);
                 break;
-            case 'purge':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Game');
-                $service->purge();
+            case 'top-month':
+                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Article');
+                $service->postTopMonth($date);
                 break;
         }
         $this->end($output);
