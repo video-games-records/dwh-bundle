@@ -298,7 +298,7 @@ class Player
      */
     public function __toString()
     {
-        return sprintf('%s [%s]', $this->idPlayer, $this->idPlayer);
+        return sprintf('%s [%s]', $this->id, $this->id);
     }
 
     /**
