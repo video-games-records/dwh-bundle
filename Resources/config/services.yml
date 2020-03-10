@@ -1,6 +1,11 @@
 services:
     _defaults:
         autowire: true
+        autoconfigure: true
+        public: false
+    VideoGamesRecords\DwhBundle\:
+        resource: '../../*'
+        exclude: '../../{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
     VideoGamesRecords\DwhBundle\Service\Player:
         class:    VideoGamesRecords\DwhBundle\Service\Player
         arguments: [
