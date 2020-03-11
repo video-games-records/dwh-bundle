@@ -33,11 +33,11 @@ class TeamCommand extends DefaultCommand
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $service = $this->getContainer()->get('dwh.team');
+                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Team');
                 $service->maj();
                 break;
             case 'purge':
-                $service = $this->getContainer()->get('dwh.team');
+                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Team');
                 $service->purge();
                 break;
         }
