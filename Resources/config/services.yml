@@ -5,26 +5,30 @@ services:
         public: false
     VideoGamesRecords\DwhBundle\:
         resource: '../../*'
-        exclude: '../../{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../../{DependencyInjection,Entity,Migrations,Service,Tests,Kernel.php}'
     VideoGamesRecords\DwhBundle\Service\Player:
+        public: true
         class:    VideoGamesRecords\DwhBundle\Service\Player
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
             ]
     VideoGamesRecords\DwhBundle\Service\Game:
+        public: true
         class:    VideoGamesRecords\DwhBundle\Service\Game
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
             ]
     VideoGamesRecords\DwhBundle\Service\Team:
+        public: true
         class:    VideoGamesRecords\DwhBundle\Service\Team
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",
             "@=service('doctrine.orm.default_entity_manager')"
             ]
     VideoGamesRecords\DwhBundle\Service\Article:
+        public: true
         class:    VideoGamesRecords\DwhBundle\Service\Article
         arguments: [
             "@=service('doctrine.orm.dwh_entity_manager')",

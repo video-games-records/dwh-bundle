@@ -26,12 +26,12 @@ class Team
         $date1->sub(new \DateInterval('P1D'));
         $date2 = new \DateTime();
 
-        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsTeamBundle:Team')->getNbPostDay($date1, $date2);
+        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getNbPostDay($date1, $date2);
 
-        $list = $this->defaultEntityManager->getRepository('VideoGamesRecordsTeamBundle:Team')->getDataForDwh();
+        $list = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getDataForDwh();
 
         foreach ($list as $row) {
-            $idTeam = $row['idTeam'];
+            $idTeam = $row['id'];
             $dwhTeam= new DwhTeam();
             $dwhTeam->setDate($date1->format('Y-m-d'));
             $dwhTeam->setFromArray($row);
