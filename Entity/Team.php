@@ -15,10 +15,10 @@ class Team
     /**
      * @var integer
      *
-     * @ORM\Column(name="idTeam", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      */
-    private $idTeam;
+    private $id;
 
     /**
      * @var string
@@ -127,25 +127,25 @@ class Team
     }
 
     /**
-     * Set idTeam
+     * Set id
      *
-     * @param integer $idTeam
+     * @param integer $id
      * @return Team
      */
-    public function setIdTeam($idTeam)
+    public function setId($id)
     {
-        $this->idTeam = $idTeam;
+        $this->id= $id;
         return $this;
     }
 
     /**
-     * Get idTeam
+     * Get id
      *
      * @return integer
      */
-    public function getIdTeam()
+    public function getId()
     {
-        return $this->idTeam;
+        return $this->id;
     }
 
     /**
