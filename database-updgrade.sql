@@ -80,3 +80,4 @@ ALTER TABLE `dwh_team` DROP INDEX `vgr_pointJeu`;
 ALTER TABLE `dwh_team` DROP INDEX `vgr_rank_pointJeu`;
 ALTER TABLE `dwh_team` ADD INDEX `idxTeam` (`idTeam`);
 ALTER TABLE `dwh_team` ADD INDEX `idxDate` (`date`);
+ALTER TABLE `dwh_team` CHANGE `idTeam` `id` INT(11) NOT NULL;
