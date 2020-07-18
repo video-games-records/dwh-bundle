@@ -24,12 +24,6 @@ class GameCommand extends DefaultCommand
                 InputOption::VALUE_NONE,
                 ''
             )
-            ->addOption(
-                'date',
-                null,
-                InputOption::VALUE_OPTIONAL,
-                ''
-            )
         ;
     }
 
