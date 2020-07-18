@@ -1,8 +1,6 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
-use ProjetNormandie\ArticleBundle\Entity\Article as PnArticle;
-
 class Article
 {
     private $dwhEntityManager;
@@ -29,7 +27,6 @@ class Article
      */
     public function postTopWeek($day)
     {
-        $day = '2017-01-01';
         $date1Begin = new \DateTime($day);
         $date1End = new \DateTime($day);
 
@@ -45,25 +42,29 @@ class Article
         $week = $date1Begin->format('W');
 
         $gamesData  = $this->gameService->getTop($date1Begin, $date1End, $date2Begin, $date2End, 20);
-        $gamesHtml = $this->getHtmlTopGame($gamesData);
+        $gamesHtmlEn = $this->getHtmlTopGame($gamesData, 'en');
+        $gamesHtmlFr = $this->getHtmlTopGame($gamesData, 'fr');
 
         $playersData  = $this->playerService->getTop($date1Begin, $date1End, $date2Begin, $date2End, 20);
-        $playersHtml = $this->getHtmlTopPlayer($playersData);
+        $playersHtmlEn = $this->getHtmlTopPlayer($playersData, 'en');
+        $playersHtmlFr = $this->getHtmlTopPlayer($playersData, 'fr');
 
+        $textEn = $gamesHtmlEn . '<br /><br />' . $playersHtmlEn;
+        $textFr = $gamesHtmlFr . '<br /><br />' . $playersHtmlFr;
 
-        $text = $gamesHtml . '<br /><br />' . $playersHtml;
-
-        $article = new PnArticle();
-        $article->translate('en', false)->setTitle('Top of week #' . $week);
-        $article->translate('en', false)->setText($text);
-        $article->translate('fr', false)->setTitle('Top de la semaine #' . $week);
-        $article->translate('fr', false)->setText($text);
-
-
-        //$article->setAuthor($user);
-        $article->mergeNewTranslations();
-        $this->defaultEntityManager->persist($article);
-        $this->defaultEntityManager->flush();
+        $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:ArticleInterface')->create(
+            array(
+                'title' => array(
+                    'en' => 'Top of week #' . $week,
+                    'fr' => 'Top de la semaine #' . $week,
+                ),
+                'text' => array(
+                    'en' => $textEn,
+                    'fr' => $textFr,
+                ),
+                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 0)
+            )
+        );
     }
 
 
@@ -86,110 +87,134 @@ class Article
         $date2End->sub(new \DateInterval('P1M'));
 
 
-        echo $date1Begin->format('Y-m-d') . "\n";
+        /*echo $date1Begin->format('Y-m-d') . "\n";
         echo $date1End->format('Y-m-d') . "\n";
         echo $date2Begin->format('Y-m-d') . "\n";
-        echo $date2End->format('Y-m-d') . "\n";
+        echo $date2End->format('Y-m-d') . "\n";*/
 
 
         $month = $date1Begin->format('F');
 
         $gamesData  = $this->gameService->getTop($date1Begin, $date1End, $date2Begin, $date2End, 50);
-        $gamesHtml = $this->getHtmlTopGame($gamesData);
+        $gamesHtmlEn = $this->getHtmlTopGame($gamesData, 'en');
+        $gamesHtmlFr = $this->getHtmlTopGame($gamesData, 'fr');
 
         $playersData  = $this->playerService->getTop($date1Begin, $date1End, $date2Begin, $date2End, 50);
-        $playersHtml = $this->getHtmlTopPlayer($playersData);
+        $playersHtmlEn = $this->getHtmlTopPlayer($playersData, 'en');
+        $playersHtmlFr = $this->getHtmlTopPlayer($playersData, 'fr');
 
+        $textEn = $gamesHtmlEn . '<br /><br />' . $playersHtmlEn;
+        $textFr = $gamesHtmlFr . '<br /><br />' . $playersHtmlFr;
 
-        $text = $gamesHtml . '<br /><br />' . $playersHtml;
-
-        $article = new PnArticle();
-        $article->translate('en', false)->setTitle('Top of month #' . $month);
-        $article->translate('en', false)->setText($text);
-        $article->translate('fr', false)->setTitle('Top du mois #' . $month);
-        $article->translate('fr', false)->setText($text);
-
-
-        $article->setAuthor(1);
-        $article->mergeNewTranslations();
-        $this->defaultEntityManager->persist($article);
-        $this->defaultEntityManager->flush();
+        $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:ArticleInterface')->create(
+            array(
+                'title' => array(
+                    'en' => 'Top of month #' . $month,
+                    'fr' => 'Top du mois #' . $month,
+                ),
+                'text' => array(
+                    'en' => $textEn,
+                    'fr' => $textFr,
+                ),
+                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 0)
+            )
+        );
     }
 
 
     /**
-     * @param $data
+     * @param        $data
+     * @param string $locale
      * @return string
      */
-    public function getHtmlTopPlayer($data)
+    public function getHtmlTopPlayer($data, $locale = 'en')
     {
         $html = '';
 
-        $html .= '<div align="center">';
-        for ($i =0; $i<= 2; $i++) {
-            $html .= sprintf(
-                '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
-                '',
-                'https://picture.video-games-records.com/avatar/' . $data['list'][$i]['player']->getAvatar(),
-                $data['list'][$i]['player']->getPseudo()
-            );
-            if ($i == 0) {
-                $html .= '<br />';
+        if (count($data['list']) > 0) {
+            $html .= '<div align="center">';
+            for ($i = 0; $i <= 2; $i++) {
+                $html .= sprintf(
+                    '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
+                    '#/' . $locale . '/' . $data['list'][$i]['player']->getUrl(),
+                    'https://picture.video-games-records.com/avatar/' . $data['list'][$i]['player']->getAvatar(),
+                    $data['list'][$i]['player']->getPseudo()
+                );
+                if ($i == 0) {
+                    $html .= '<br />';
+                }
             }
-        }
-        $html .= '</div>';
-        $html .= '<br />';
-        $html .= '<table border="0">';
-        $html .= '<tbody>';
+            $html .= '</div>';
+            $html .= '<br />';
+            $html .= '<table border="0">';
+            $html .= '<tbody>';
 
-        foreach ($data['list'] as $row) {
-            $html .= sprintf($this->getHtmLine(), $row['rank'], 'URL', (($row['player'] != null) ? $row['player']->getPseudo() : '???'), $row['nb'], $this->diff($row, count($data['list'])));
-        }
+            foreach ($data['list'] as $row) {
+                $html .= sprintf(
+                    $this->getHtmLine(), $row['rank'], '#/' . $locale . '/' . $row['player']->getUrl(),
+                    (($row['player'] != null) ? $row['player']->getPseudo() : '???'), $row['nb'],
+                    $this->diff($row, count($data['list']))
+                );
+            }
 
-        if ($data['nbTotalPost'] > $data['nbPostFromList']) {
-            $html .= sprintf($this->getHtmlBottom1(), count($data['list']) + 1, $data['nb'], $data['nbTotalPost'] - $data['nbPostFromList']);
+            if ($data['nbTotalPost'] > $data['nbPostFromList']) {
+                $html .= sprintf(
+                    $this->getHtmlBottom1(), count($data['list']) + 1, $data['nb'],
+                    $data['nbTotalPost'] - $data['nbPostFromList']
+                );
+            }
+            $html .= sprintf($this->getHtmlBottom2(), $data['nbTotalPost']);
+            $html .= '</tbody>';
+            $html .= '</table>';
         }
-        $html .= sprintf($this->getHtmlBottom2(), $data['nbTotalPost']);
-        $html .= '</tbody>';
-        $html .= '</table>';
 
         return $html;
     }
 
     /**
-     * @param $data
+     * @param        $data
+     * @param string $locale
      * @return string
      */
-    private function getHtmlTopGame($data)
+    private function getHtmlTopGame($data, $locale = 'en')
     {
         $html = '';
 
-        $html .= '<div align="center">';
-        for ($i =0; $i<= 2; $i++) {
-            $html .= sprintf(
-                '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
-                '',
-                'https://picture.video-games-records.com/jeu/' . $data['list'][$i]['game']->getPicture(),
-                $data['list'][$i]['game']->getName()
-            );
-            if ($i == 0) {
-                $html .= '<br />';
-            }
-        }
-        $html .= '</div>';
-        $html .= '<br />';
-        $html .= '<table border="0">';
-        $html .= '<tbody>';
+        if (count($data['list']) > 0) {
+            $html .= '<div align="center">';
 
-        foreach ($data['list'] as $row) {
-            $html .= sprintf($this->getHtmLine(), $row['rank'], 'URL', $row['game']->getName(), $row['nb'], $this->diff($row, count($data['list'])));
+            for ($i = 0; $i <= 2; $i++) {
+                $html .= sprintf(
+                    '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
+                    '#/' . $locale . '/' . $data['list'][$i]['game']->getUrl(),
+                    'https://picture.video-games-records.com/jeu/' . $data['list'][$i]['game']->getPicture(),
+                    $data['list'][$i]['game']->getName()
+                );
+                if ($i == 0) {
+                    $html .= '<br />';
+                }
+            }
+            $html .= '</div>';
+            $html .= '<br />';
+            $html .= '<table border="0">';
+            $html .= '<tbody>';
+
+            foreach ($data['list'] as $row) {
+                $html .= sprintf(
+                    $this->getHtmLine(), $row['rank'], '#/' . $locale . '/' . $row['game']->getUrl(),
+                    $row['game']->getName(), $row['nb'], $this->diff($row, count($data['list']))
+                );
+            }
+            if ($data['nbTotalPost'] > $data['nbPostFromList']) {
+                $html .= sprintf(
+                    $this->getHtmlBottom1(), count($data['list']) + 1, $data['nbItem'],
+                    $data['nbTotalPost'] - $data['nbPostFromList']
+                );
+            }
+            $html .= sprintf($this->getHtmlBottom2(), $data['nbTotalPost']);
+            $html .= '</tbody>';
+            $html .= '</table>';
         }
-        if ($data['nbTotalPost'] > $data['nbPostFromList']) {
-            $html .= sprintf($this->getHtmlBottom1(), count($data['list']) + 1, $data['nbItem'], $data['nbTotalPost'] - $data['nbPostFromList']);
-        }
-        $html .= sprintf($this->getHtmlBottom2(), $data['nbTotalPost']);
-        $html .= '</tbody>';
-        $html .= '</table>';
 
         return $html;
     }

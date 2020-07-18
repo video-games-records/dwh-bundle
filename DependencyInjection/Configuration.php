@@ -17,8 +17,17 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('video_games_records_dwh');
+        $treeBuilder = new TreeBuilder('video_games_records_dwh');
+        $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
+            ->children()
+            ->arrayNode('url')
+            ->children()
+            ->scalarNode('picture')->defaultValue(null)->end()
+            ->end()
+            ->end()
+            ->end();
 
         return $treeBuilder;
     }
