@@ -5,9 +5,20 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use VideoGamesRecords\DwhBundle\Service\Article as Service;
 
 class ArticleCommand extends DefaultCommand
 {
+    protected static $defaultName = 'vgr-dwh:article';
+
+    private $service;
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
@@ -49,12 +60,10 @@ class ArticleCommand extends DefaultCommand
         }
         switch ($function) {
             case 'top-week':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Article');
-                $service->postTopWeek($date);
+                $this->service->postTopWeek($date);
                 break;
             case 'top-month':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Article');
-                $service->postTopMonth($date);
+                $this->service->postTopMonth($date);
                 break;
         }
         $this->end($output);

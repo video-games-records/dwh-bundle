@@ -3,12 +3,14 @@
 namespace VideoGamesRecords\DwhBundle\Command;
 
 use Doctrine\DBAL\Logging\DebugStack;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-abstract class DefaultCommand extends ContainerAwareCommand
+class DefaultCommand extends Command
 {
+    protected static $defaultName = 'vgr-dwh:default';
+
     private $sglLoggerEnabled = false;
     private $stack;
 

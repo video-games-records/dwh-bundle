@@ -81,3 +81,11 @@ ALTER TABLE `dwh_team` DROP INDEX `vgr_rank_pointJeu`;
 ALTER TABLE `dwh_team` ADD INDEX `idxTeam` (`idTeam`);
 ALTER TABLE `dwh_team` ADD INDEX `idxDate` (`date`);
 ALTER TABLE `dwh_team` CHANGE `idTeam` `id` INT(11) NOT NULL;
+
+
+ALTER TABLE `dwh_player` CHANGE `pointGame` `pointGame` INT(11) NOT NULL DEFAULT '0';
+ALTER TABLE `dwh_player` CHANGE `nbPostDay` `nbPostDay` INT(5) NOT NULL DEFAULT '0';
+ALTER TABLE `dwh_player` CHANGE `rankPointGame` `rankPointGame` INT(11) NULL;
+ALTER TABLE `dwh_player` CHANGE `rankPointChart` `rankPointChart` INT(5) NULL;
+ALTER TABLE `dwh_player` CHANGE `rankMedal` `rankMedal` INT(5) NULL;
+

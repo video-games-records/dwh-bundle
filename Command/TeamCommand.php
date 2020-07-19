@@ -5,9 +5,20 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use VideoGamesRecords\DwhBundle\Service\Team as Service;
 
 class TeamCommand extends DefaultCommand
 {
+    protected static $defaultName = 'vgr-dwh:team';
+
+    private $service;
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this->setName('vgr-dwh:team')
@@ -32,12 +43,10 @@ class TeamCommand extends DefaultCommand
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Team');
-                $service->maj();
+                $this->service->maj();
                 break;
             case 'purge':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Team');
-                $service->purge();
+                $this->service->purge();
                 break;
         }
         $this->end($output);

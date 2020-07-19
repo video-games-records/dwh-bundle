@@ -9,6 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TwitterCommand extends DefaultCommand
 {
+    protected static $defaultName = 'vgr-dwh:twitter';
+
     protected function configure()
     {
         $this->setName('vgr-dwh:twitter')
