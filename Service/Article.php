@@ -134,12 +134,14 @@ class Article
         if (count($data['list']) > 0) {
             $html .= '<div align="center">';
             for ($i = 0; $i <= 2; $i++) {
-                $html .= sprintf(
-                    '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
-                    '#/' . $locale . '/' . $data['list'][$i]['player']->getUrl(),
-                    'https://picture.video-games-records.com/avatar/' . $data['list'][$i]['player']->getAvatar(),
-                    $data['list'][$i]['player']->getPseudo()
-                );
+                if (array_key_exists($i, $data['list'])) {
+                    $html .= sprintf(
+                        '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
+                        '#/' . $locale . '/' . $data['list'][$i]['player']->getUrl(),
+                        'https://picture.video-games-records.com/avatar/' . $data['list'][$i]['player']->getAvatar(),
+                        $data['list'][$i]['player']->getPseudo()
+                    );
+                }
                 if ($i == 0) {
                     $html .= '<br />';
                 }
@@ -184,12 +186,14 @@ class Article
             $html .= '<div align="center">';
 
             for ($i = 0; $i <= 2; $i++) {
-                $html .= sprintf(
-                    '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
-                    '#/' . $locale . '/' . $data['list'][$i]['game']->getUrl(),
-                    'https://picture.video-games-records.com/jeu/' . $data['list'][$i]['game']->getPicture(),
-                    $data['list'][$i]['game']->getName()
-                );
+                if (array_key_exists($i, $data['list'])) {
+                    $html .= sprintf(
+                        '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
+                        '#/' . $locale . '/' . $data['list'][$i]['game']->getUrl(),
+                        'https://picture.video-games-records.com/jeu/' . $data['list'][$i]['game']->getPicture(),
+                        $data['list'][$i]['game']->getName()
+                    );
+                }
                 if ($i == 0) {
                     $html .= '<br />';
                 }
