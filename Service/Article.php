@@ -62,7 +62,7 @@ class Article
                     'en' => $textEn,
                     'fr' => $textFr,
                 ),
-                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 0)
+                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
             )
         );
     }
@@ -116,7 +116,7 @@ class Article
                     'en' => $textEn,
                     'fr' => $textFr,
                 ),
-                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 0)
+                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
             )
         );
     }
