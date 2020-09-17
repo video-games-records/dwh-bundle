@@ -1,29 +1,38 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
+use Doctrine\ORM\EntityManager;
+use Exception;
+use ProjetNormandie\ArticleBundle\Service\Writer;
+use VideoGamesRecords\DwhBundle\Service\Game as GameService;
+use VideoGamesRecords\DwhBundle\Service\Player as PlayerService;
+
 class Article
 {
     private $dwhEntityManager;
     private $defaultEntityManager;
     private $gameService;
     private $playerService;
+    private $writer;
 
     public function __construct(
-        \Doctrine\ORM\EntityManager $dwhEntityManager,
-        \Doctrine\ORM\EntityManager $defaultEntityManager,
-        \VideoGamesRecords\DwhBundle\Service\Game $gameService,
-        \VideoGamesRecords\DwhBundle\Service\Player $playerService
+        EntityManager $dwhEntityManager,
+        EntityManager $defaultEntityManager,
+        GameService $gameService,
+        PlayerService $playerService,
+        Writer $writer
     )
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
         $this->gameService = $gameService;
         $this->playerService = $playerService;
+        $this->writer = $writer;
     }
 
     /**
      * @param $day
-     * @throws \Exception
+     * @throws Exception
      */
     public function postTopWeek($day)
     {
@@ -52,25 +61,23 @@ class Article
         $textEn = $gamesHtmlEn . '<br /><br />' . $playersHtmlEn;
         $textFr = $gamesHtmlFr . '<br /><br />' . $playersHtmlFr;
 
-        $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:ArticleInterface')->create(
+        $this->writer->write(
             array(
-                'title' => array(
-                    'en' => 'Top of week #' . $week,
-                    'fr' => 'Top de la semaine #' . $week,
-                ),
-                'text' => array(
-                    'en' => $textEn,
-                    'fr' => $textFr,
-                ),
-                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
-            )
+                'en' => 'Top of week #' . $week,
+                'fr' => 'Top de la semaine #' . $week,
+            ),
+            array(
+                'en' => $textEn,
+                'fr' => $textFr,
+            ),
+            $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
         );
     }
 
 
     /**
      * @param $day
-     * @throws \Exception
+     * @throws Exception
      */
     public function postTopMonth($day)
     {
@@ -106,18 +113,16 @@ class Article
         $textEn = $gamesHtmlEn . '<br /><br />' . $playersHtmlEn;
         $textFr = $gamesHtmlFr . '<br /><br />' . $playersHtmlFr;
 
-        $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:ArticleInterface')->create(
+        $this->writer->write(
             array(
-                'title' => array(
-                    'en' => 'Top of month #' . $month,
-                    'fr' => 'Top du mois #' . $month,
-                ),
-                'text' => array(
-                    'en' => $textEn,
-                    'fr' => $textFr,
-                ),
-                'author' => $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
-            )
+                'en' => 'Top of month #' . $month,
+                'fr' => 'Top du mois #' . $month,
+            ),
+            array(
+                'en' => $textEn,
+                'fr' => $textFr,
+            ),
+            $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
         );
     }
 

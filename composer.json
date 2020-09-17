@@ -25,6 +25,7 @@
     "doctrine/orm": "^2.5",
     "doctrine/doctrine-bundle": "~2.0",
     "video-games-records/core-bundle": "~0.1",
+    "projet-normandie/article-bundle": "~0.1",
     "abraham/twitteroauth": "^1.1"
   },
   "suggest": {
