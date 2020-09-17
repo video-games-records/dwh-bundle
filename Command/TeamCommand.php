@@ -24,10 +24,14 @@ class TeamCommand extends DefaultCommand
         $this->setName('vgr-dwh:team')
             ->setDescription('Command to update table vgr_team')
             ->addArgument(
-                'function', InputArgument::REQUIRED, 'Who do you want to do?'
+                'function',
+                InputArgument::REQUIRED,
+                'Who do you want to do?'
             )
             ->addOption(
-                'debug', null, InputOption::VALUE_NONE, ''
+                'debug',
+                null,
+                InputOption::VALUE_NONE, ''
             );
     }
 

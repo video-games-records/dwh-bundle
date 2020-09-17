@@ -51,11 +51,10 @@ class Game
 
     /**
      * Set id
-     *
      * @param integer $id
      * @return Game
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
@@ -73,11 +72,10 @@ class Game
 
     /**
      * Set date
-     *
      * @param string $date
      * @return Game
      */
-    public function setDate($date)
+    public function setDate(string $date)
     {
         $this->date = $date;
 
@@ -95,11 +93,10 @@ class Game
 
     /**
      * Set nbPost
-     *
      * @param integer $nbPost
      * @return Game
      */
-    public function setNbPost($nbPost)
+    public function setNbPost(int $nbPost)
     {
         $this->nbPost = $nbPost;
 
@@ -118,11 +115,10 @@ class Game
 
     /**
      * Set nbPostDay
-     *
      * @param integer $nbPostDay
      * @return Game
      */
-    public function setNbPostDay($nbPostDay)
+    public function setNbPostDay(int $nbPostDay)
     {
         $this->nbPostDay = $nbPostDay;
 

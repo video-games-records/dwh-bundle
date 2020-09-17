@@ -21,8 +21,7 @@ class Article
         GameService $gameService,
         PlayerService $playerService,
         Writer $writer
-    )
-    {
+    ) {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
         $this->gameService = $gameService;
@@ -158,15 +157,19 @@ class Article
 
             foreach ($data['list'] as $row) {
                 $html .= sprintf(
-                    $this->getHtmLine(), $row['rank'], '#/' . $locale . '/' . $row['player']->getUrl(),
-                    (($row['player'] != null) ? $row['player']->getPseudo() : '???'), $row['nb'],
+                    $this->getHtmLine(),
+                    $row['rank'], '#/' . $locale . '/' . $row['player']->getUrl(),
+                    (($row['player'] != null) ? $row['player']->getPseudo() : '???'),
+                    $row['nb'],
                     $this->diff($row, count($data['list']))
                 );
             }
 
             if ($data['nbTotalPost'] > $data['nbPostFromList']) {
                 $html .= sprintf(
-                    $this->getHtmlBottom1(), count($data['list']) + 1, $data['nb'],
+                    $this->getHtmlBottom1(),
+                    count($data['list']) + 1,
+                    $data['nb'],
                     $data['nbTotalPost'] - $data['nbPostFromList']
                 );
             }
@@ -210,13 +213,18 @@ class Article
 
             foreach ($data['list'] as $row) {
                 $html .= sprintf(
-                    $this->getHtmLine(), $row['rank'], '#/' . $locale . '/' . $row['game']->getUrl(),
-                    $row['game']->getName(), $row['nb'], $this->diff($row, count($data['list']))
+                    $this->getHtmLine(),
+                    $row['rank'], '#/' . $locale . '/' . $row['game']->getUrl(),
+                    $row['game']->getName(),
+                    $row['nb'],
+                    $this->diff($row, count($data['list']))
                 );
             }
             if ($data['nbTotalPost'] > $data['nbPostFromList']) {
                 $html .= sprintf(
-                    $this->getHtmlBottom1(), count($data['list']) + 1, $data['nbItem'],
+                    $this->getHtmlBottom1(),
+                    count($data['list']) + 1,
+                    $data['nbItem'],
                     $data['nbTotalPost'] - $data['nbPostFromList']
                 );
             }

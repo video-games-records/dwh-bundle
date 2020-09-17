@@ -16,10 +16,14 @@ class TwitterCommand extends DefaultCommand
         $this->setName('vgr-dwh:twitter')
             ->setDescription('Command to dialog with twitter')
             ->addArgument(
-                'function', InputArgument::REQUIRED, 'Who do you want to do?'
+                'function',
+                InputArgument::REQUIRED,
+                'Who do you want to do?'
             )
             ->addOption(
-                'debug', null, InputOption::VALUE_NONE, ''
+                'debug',
+                null,
+                InputOption::VALUE_NONE, ''
             );
     }
 
@@ -35,7 +39,7 @@ class TwitterCommand extends DefaultCommand
         $function = $input->getArgument('function');
         switch ($function) {
             case 'poke':
-
+                exit;
                 break;
         }
         $this->end($output);

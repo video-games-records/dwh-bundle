@@ -1,6 +1,9 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
+use DateInterval;
+use DateTime;
+use Doctrine\ORM\EntityManager;
 use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
 
@@ -10,7 +13,7 @@ class Player
     private $defaultEntityManager;
     private $playerRepository;
 
-    public function __construct(\Doctrine\ORM\EntityManager $dwhEntityManager, \Doctrine\ORM\EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
@@ -22,9 +25,9 @@ class Player
      */
     public function maj()
     {
-        $date1 = new \DateTime();
-        $date1->sub(new \DateInterval('P1D'));
-        $date2 = new \DateTime();
+        $date1 = new DateTime();
+        $date1->sub(new DateInterval('P1D'));
+        $date2 = new DateTime();
 
         $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:PlayerChart')->getNbPostDay($date1, $date2);
 
@@ -54,8 +57,8 @@ class Player
      */
     public function purge()
     {
-        $date = new \DateTime();
-        $date = $date->sub(\DateInterval::createFromDateString('3 years'));
+        $date = new DateTime();
+        $date = $date->sub(DateInterval::createFromDateString('3 years'));
 
         //----- delete
         $query = $this->dwhEntityManager->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Player p WHERE p.date < :date');
@@ -64,15 +67,14 @@ class Player
     }
 
     /**
-     * @param \DateTime $beginA
-     * @param \DateTime $endA
-     * @param \DateTime $beginB
-     * @param \DateTime $endB
-     * @param integer $limit
-     *
+     * @param DateTime $date1Begin
+     * @param DateTime $date1End
+     * @param DateTime $date2Begin
+     * @param DateTime $date2End
+     * @param integer  $limit
      * @return array
      */
-    public function getTop(\DateTime $date1Begin, \DateTime $date1End, \DateTime $date2Begin, \DateTime $date2End, $limit = 20)
+    public function getTop(DateTime $date1Begin, DateTime $date1End, DateTime $date2Begin, DateTime $date2End, $limit = 20)
     {
         $playerList1 = $this->playerRepository->getTop(
             $date1Begin,
@@ -80,8 +82,8 @@ class Player
             $limit
         );
         $playerList2 = $this->playerRepository->getTop(
-            $date1Begin,
-            $date1End,
+            $date2Begin,
+            $date2End,
             $limit
         );
 

@@ -303,11 +303,10 @@ class Player
 
     /**
      * Set id
-     *
      * @param integer $id
      * @return Player
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
@@ -325,11 +324,10 @@ class Player
 
     /**
      * Set date
-     *
      * @param string $date
      * @return Player
      */
-    public function setDate($date)
+    public function setDate(string $date)
     {
         $this->date = $date;
 
@@ -347,11 +345,10 @@ class Player
 
     /**
      * Set chartRank0
-     *
      * @param integer $chartRank0
      * @return Player
      */
-    public function setChartRank0($chartRank0)
+    public function setChartRank0(int $chartRank0)
     {
         $this->chartRank0 = $chartRank0;
 
@@ -370,11 +367,10 @@ class Player
 
     /**
      * Set chartRank1
-     *
      * @param integer $chartRank1
      * @return Player
      */
-    public function setChartRank1($chartRank1)
+    public function setChartRank1(int $chartRank1)
     {
         $this->chartRank1 = $chartRank1;
 
@@ -393,11 +389,10 @@ class Player
 
     /**
      * Set chartRank2
-     *
      * @param integer $chartRank2
      * @return Player
      */
-    public function setChartRank2($chartRank2)
+    public function setChartRank2(int $chartRank2)
     {
         $this->chartRank2 = $chartRank2;
 
@@ -416,11 +411,10 @@ class Player
 
     /**
      * Set chartRank3
-     *
      * @param integer $chartRank3
      * @return Player
      */
-    public function setChartRank3($chartRank3)
+    public function setChartRank3(int $chartRank3)
     {
         $this->chartRank3 = $chartRank3;
 
@@ -443,7 +437,7 @@ class Player
      * @param integer $nb
      * @return $this
      */
-    public function setChartRank($rank, $nb)
+    public function setChartRank(int $rank, int $nb)
     {
         $var = 'chartRank' . $rank;
         $this->$var = $nb;
@@ -454,11 +448,10 @@ class Player
 
     /**
      * Get chartRank
-     *
      * @param integer $rank
      * @return integer
      */
-    public function getChartRank($rank)
+    public function getChartRank(int $rank)
     {
         $var = 'chartRank' . $rank;
         return $this->$var;
@@ -466,11 +459,10 @@ class Player
 
     /**
      * Set pointChart
-     *
      * @param integer $pointChart
      * @return Player
      */
-    public function setPointChart($pointChart)
+    public function setPointChart(int $pointChart)
     {
         $this->pointChart = $pointChart;
 
@@ -490,11 +482,10 @@ class Player
 
     /**
      * Set rankPointChart
-     *
      * @param integer $rankPointChart
      * @return Player
      */
-    public function setRankPointChart($rankPointChart)
+    public function setRankPointChart(int $rankPointChart)
     {
         $this->rankPointChart = $rankPointChart;
 
@@ -513,11 +504,10 @@ class Player
 
     /**
      * Set rankMedal
-     *
      * @param integer $rankMedal
      * @return Player
      */
-    public function setRankMedal($rankMedal)
+    public function setRankMedal(int $rankMedal)
     {
         $this->rankMedal = $rankMedal;
 
@@ -535,14 +525,12 @@ class Player
     }
 
 
-
     /**
      * Set nbChart
-     *
      * @param integer $nbChart
      * @return Player
      */
-    public function setNbChart($nbChart)
+    public function setNbChart(int $nbChart)
     {
         $this->nbChart = $nbChart;
 
@@ -561,11 +549,10 @@ class Player
 
     /**
      * Set pointGame
-     *
      * @param integer $pointGame
      * @return Player
      */
-    public function setPointGame($pointGame)
+    public function setPointGame(int $pointGame)
     {
         $this->pointGame = $pointGame;
 
@@ -584,11 +571,10 @@ class Player
 
     /**
      * Set rankPointGame
-     *
      * @param integer $rankPointGame
      * @return Player
      */
-    public function setRankPointGame($rankPointGame)
+    public function setRankPointGame(int $rankPointGame)
     {
         $this->rankPointGame = $rankPointGame;
 
@@ -607,11 +593,10 @@ class Player
 
     /**
      * Set nbPostDay
-     *
      * @param integer $nbPostDay
      * @return Player
      */
-    public function setNbPostDay($nbPostDay)
+    public function setNbPostDay(int $nbPostDay)
     {
         $this->nbPostDay = $nbPostDay;
 
