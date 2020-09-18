@@ -2,15 +2,22 @@
 
 namespace VideoGamesRecords\DwhBundle\Service;
 
+use DateInterval;
+use DateTime;
+use Doctrine\ORM\EntityManager;
+use Exception;
 use VideoGamesRecords\DwhBundle\Entity\Team as DwhTeam;
+use VideoGamesRecords\DwhBundle\Repository\TeamRepository;
 
 class Team
 {
     private $dwhEntityManager;
     private $defaultEntityManager;
+
+    /** @var TeamRepository  */
     private $teamRepository;
 
-    public function __construct(\Doctrine\ORM\EntityManager $dwhEntityManager, \Doctrine\ORM\EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
@@ -18,13 +25,13 @@ class Team
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function maj()
     {
-        $date1 = new \DateTime();
-        $date1->sub(new \DateInterval('P1D'));
-        $date2 = new \DateTime();
+        $date1 = new DateTime();
+        $date1->sub(new DateInterval('P1D'));
+        $date2 = new DateTime();
 
         $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getNbPostDay($date1, $date2);
 
@@ -43,12 +50,12 @@ class Team
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function purge()
     {
-        $date = new \DateTime();
-        $date = $date->sub(\DateInterval::createFromDateString('3 years'));
+        $date = new DateTime();
+        $date = $date->sub(DateInterval::createFromDateString('3 years'));
 
         //----- delete
         $query = $this->dwhEntityManager->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Team t WHERE t.date < :date');

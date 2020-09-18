@@ -4,13 +4,19 @@ namespace VideoGamesRecords\DwhBundle\Service;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Exception;
 use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
+use VideoGamesRecords\DwhBundle\Repository\PlayerRepository;
 
 class Player
 {
     private $dwhEntityManager;
     private $defaultEntityManager;
+
+    /** @var PlayerRepository  */
     private $playerRepository;
 
     public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
@@ -21,7 +27,7 @@ class Player
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function maj()
     {
@@ -53,7 +59,7 @@ class Player
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function purge()
     {
@@ -106,8 +112,19 @@ class Player
             $nbPostFromList += $playerList1[$i]['nb'];
         }
 
-        $nbPlayer = $this->playerRepository->getTotalNbPlayer($date1Begin, $date1End);
-        $nbTotalPost = $this->playerRepository->getTotalNbPostDay($date1Begin, $date1End);
+        $nbPlayer = 0;
+        try {
+            $nbPlayer = $this->playerRepository->getTotalNbPlayer($date1Begin, $date1End);
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+
+        $nbTotalPost = 0;
+        try {
+            $nbTotalPost = $this->playerRepository->getTotalNbPostDay($date1Begin, $date1End);
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
 
         $playerList = ToolsRanking::addRank(
             $playerList1,

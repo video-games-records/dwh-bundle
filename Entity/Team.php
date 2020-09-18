@@ -123,7 +123,7 @@ class Team
      */
     public function __toString()
     {
-        return sprintf('%s [%s]', $this->idTeam, $this->idTeam);
+        return sprintf('%s [%s]', $this->id, $this->id);
     }
 
     /**

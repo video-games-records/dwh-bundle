@@ -1,13 +1,15 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Command;
 
+use Exception;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use VideoGamesRecords\DwhBundle\Service\Article as Service;
 
-class ArticleCommand extends DefaultCommand
+class ArticleCommand extends Command
 {
     protected static $defaultName = 'vgr-dwh:article';
 
@@ -30,12 +32,6 @@ class ArticleCommand extends DefaultCommand
                 'Who do you want to do?'
             )
             ->addOption(
-                'debug',
-                null,
-                InputOption::VALUE_NONE,
-                ''
-            )
-            ->addOption(
                 'date',
                 null,
                 InputOption::VALUE_OPTIONAL,
@@ -48,11 +44,10 @@ class ArticleCommand extends DefaultCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->init($input);
         $function = $input->getArgument('function');
         $date = $input->getOption('date');
         if ($date === null) {
@@ -66,7 +61,6 @@ class ArticleCommand extends DefaultCommand
                 $this->service->postTopMonth($date);
                 break;
         }
-        $this->end($output);
-        return true;
+        return 0;
     }
 }

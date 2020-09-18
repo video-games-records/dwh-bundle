@@ -1,6 +1,8 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use ProjetNormandie\ArticleBundle\Service\Writer;
@@ -35,17 +37,17 @@ class Article
      */
     public function postTopWeek($day)
     {
-        $date1Begin = new \DateTime($day);
-        $date1End = new \DateTime($day);
+        $date1Begin = new DateTime($day);
+        $date1End = new DateTime($day);
 
-        $date1End->sub(new \DateInterval('P1D'));
-        $date1Begin->sub(new \DateInterval('P7D'));
+        $date1End->sub(new DateInterval('P1D'));
+        $date1Begin->sub(new DateInterval('P7D'));
 
         $date2Begin = clone($date1Begin);
         $date2End = clone($date1End);
 
-        $date2Begin->sub(new \DateInterval('P7D'));
-        $date2End->sub(new \DateInterval('P7D'));
+        $date2Begin->sub(new DateInterval('P7D'));
+        $date2End->sub(new DateInterval('P7D'));
 
         $week = $date1Begin->format('W');
 
@@ -80,17 +82,17 @@ class Article
      */
     public function postTopMonth($day)
     {
-        $date1Begin = new \DateTime($day);
-        $date1End = new \DateTime($day);
+        $date1Begin = new DateTime($day);
+        $date1End = new DateTime($day);
 
-        $date1End->sub(new \DateInterval('P1D'));
-        $date1Begin->sub(new \DateInterval('P1M'));
+        $date1End->sub(new DateInterval('P1D'));
+        $date1Begin->sub(new DateInterval('P1M'));
 
         $date2Begin = clone($date1Begin);
         $date2End = clone($date1End);
 
-        $date2Begin->sub(new \DateInterval('P1M'));
-        $date2End->sub(new \DateInterval('P1M'));
+        $date2Begin->sub(new DateInterval('P1M'));
+        $date2End->sub(new DateInterval('P1M'));
 
 
         /*echo $date1Begin->format('Y-m-d') . "\n";
@@ -158,7 +160,8 @@ class Article
             foreach ($data['list'] as $row) {
                 $html .= sprintf(
                     $this->getHtmLine(),
-                    $row['rank'], '#/' . $locale . '/' . $row['player']->getUrl(),
+                    $row['rank'],
+                    '#/' . $locale . '/' . $row['player']->getUrl(),
                     (($row['player'] != null) ? $row['player']->getPseudo() : '???'),
                     $row['nb'],
                     $this->diff($row, count($data['list']))
@@ -214,7 +217,8 @@ class Article
             foreach ($data['list'] as $row) {
                 $html .= sprintf(
                     $this->getHtmLine(),
-                    $row['rank'], '#/' . $locale . '/' . $row['game']->getUrl(),
+                    $row['rank'],
+                    '#/' . $locale . '/' . $row['game']->getUrl(),
                     $row['game']->getName(),
                     $row['nb'],
                     $this->diff($row, count($data['list']))
