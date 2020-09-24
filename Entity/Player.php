@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Player
  *
- * @ORM\Table(name="dwh_player", indexes={@ORM\Index(name="idxPlayer", columns={"idPlayer"}), @ORM\Index(name="idxDate", columns={"date"})})
+ * @ORM\Table(name="dwh_player")
  * @ORM\Entity(repositoryClass="VideoGamesRecords\DwhBundle\Repository\PlayerRepository")
  */
 class Player
