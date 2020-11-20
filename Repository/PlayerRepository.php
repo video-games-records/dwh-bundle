@@ -2,17 +2,20 @@
 
 namespace VideoGamesRecords\DwhBundle\Repository;
 
+use DateTime;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 class PlayerRepository extends EntityRepository
 {
     /**
-     * @param \DateTime $begin
-     * @param \DateTime $end
-     * @param integer $limit
+     * @param DateTime $begin
+     * @param DateTime $end
+     * @param integer  $limit
      * @return array
      */
-    public function getTop($begin, $end, $limit = 20)
+    public function getTop(DateTime $begin, DateTime $end, $limit = 20)
     {
         $query = $this->_em->createQuery("
             SELECT p.id,
@@ -31,13 +34,13 @@ class PlayerRepository extends EntityRepository
     }
 
     /**
-     * @param \DateTime $begin
-     * @param \DateTime $end
+     * @param DateTime $begin
+     * @param DateTime $end
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function getTotalNbPlayer($begin, $end)
+    public function getTotalNbPlayer(DateTime $begin, DateTime $end)
     {
         $query = $this->_em->createQuery("
             SELECT COUNT(DISTINCT(p.id)) as nb
@@ -52,13 +55,13 @@ class PlayerRepository extends EntityRepository
     }
 
     /**
-     * @param \DateTime $begin
-     * @param \DateTime $end
+     * @param DateTime $begin
+     * @param DateTime $end
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function getTotalNbPostDay($begin, $end)
+    public function getTotalNbPostDay(DateTime $begin, DateTime $end)
     {
         $query = $this->_em->createQuery("
             SELECT SUM(p.nbPostDay) as nb

@@ -1,14 +1,25 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Command;
 
-use ProjetNormandie\CommonBundle\Command\DefaultCommand;
+use Exception;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use VideoGamesRecords\DwhBundle\Service\Game as Service;
 
-class GameCommand extends DefaultCommand
+class GameCommand extends Command
 {
+    protected static $defaultName = 'vgr-dwh:game';
+
+    private $service;
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
@@ -18,43 +29,26 @@ class GameCommand extends DefaultCommand
                 'function',
                 InputArgument::REQUIRED,
                 'Who do you want to do?'
-            )
-            ->addOption(
-                'debug',
-                null,
-                InputOption::VALUE_NONE,
-                ''
-            )
-            ->addOption(
-                'date',
-                null,
-                InputOption::VALUE_OPTIONAL,
-                ''
-            )
-        ;
+            );
     }
 
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->init($input);
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Game');
-                $service->maj();
+                $this->service->maj();
                 break;
             case 'purge':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Game');
-                $service->purge();
+                $this->service->purge();
                 break;
         }
-        $this->end($output);
-        return true;
+        return 0;
     }
 }

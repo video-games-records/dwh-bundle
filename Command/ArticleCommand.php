@@ -1,14 +1,26 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Command;
 
-use ProjetNormandie\CommonBundle\Command\DefaultCommand;
+use Exception;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use VideoGamesRecords\DwhBundle\Service\Article as Service;
 
-class ArticleCommand extends DefaultCommand
+class ArticleCommand extends Command
 {
+    protected static $defaultName = 'vgr-dwh:article';
+
+    private $service;
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
@@ -18,12 +30,6 @@ class ArticleCommand extends DefaultCommand
                 'function',
                 InputArgument::REQUIRED,
                 'Who do you want to do?'
-            )
-            ->addOption(
-                'debug',
-                null,
-                InputOption::VALUE_NONE,
-                ''
             )
             ->addOption(
                 'date',
@@ -38,11 +44,10 @@ class ArticleCommand extends DefaultCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->init($input);
         $function = $input->getArgument('function');
         $date = $input->getOption('date');
         if ($date === null) {
@@ -50,15 +55,12 @@ class ArticleCommand extends DefaultCommand
         }
         switch ($function) {
             case 'top-week':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Article');
-                $service->postTopWeek($date);
+                $this->service->postTopWeek($date);
                 break;
             case 'top-month':
-                $service = $this->getContainer()->get('VideoGamesRecords\DwhBundle\Service\Article');
-                $service->postTopMonth($date);
+                $this->service->postTopMonth($date);
                 break;
         }
-        $this->end($output);
-        return true;
+        return 0;
     }
 }

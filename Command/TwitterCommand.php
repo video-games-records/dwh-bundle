@@ -1,4 +1,5 @@
 <?php
+
 namespace VideoGamesRecords\DwhBundle\Command;
 
 use Exception;
@@ -6,25 +7,15 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\Player as Service;
 
-class PlayerCommand extends Command
+class TwitterCommand extends Command
 {
-    protected static $defaultName = 'vgr-dwh:player';
-
-    private $service;
-
-    public function __construct(Service $service)
-    {
-        $this->service = $service;
-        parent::__construct();
-    }
+    protected static $defaultName = 'vgr-dwh:twitter';
 
     protected function configure()
     {
-        $this
-            ->setName('vgr-dwh:player')
-            ->setDescription('Command to update table vgr_dwh.player')
+        $this->setName('vgr-dwh:twitter')
+            ->setDescription('Command to dialog with twitter')
             ->addArgument(
                 'function',
                 InputArgument::REQUIRED,
@@ -42,11 +33,8 @@ class PlayerCommand extends Command
     {
         $function = $input->getArgument('function');
         switch ($function) {
-            case 'maj':
-                $this->service->maj();
-                break;
-            case 'purge':
-                $this->service->purge();
+            case 'poke':
+                exit;
                 break;
         }
         return 0;

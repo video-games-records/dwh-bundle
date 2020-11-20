@@ -1,6 +1,11 @@
 <?php
 namespace VideoGamesRecords\DwhBundle\Service;
 
+use DateInterval;
+use DateTime;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Exception;
 use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
 
@@ -9,21 +14,21 @@ class Game
     private $dwhEntityManager;
     private $defaultEntityManager;
 
-    public function __construct(\Doctrine\ORM\EntityManager $dwhEntityManager, \Doctrine\ORM\EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
     }
 
     /**
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
+     * @throws OptimisticLockException
+     * @throws Exception
      */
     public function maj()
     {
-        $date1 = new \DateTime();
-        $date1->sub(new \DateInterval('P1D'));
-        $date2 = new \DateTime();
+        $date1 = new DateTime();
+        $date1->sub(new DateInterval('P1D'));
+        $date2 = new DateTime();
 
         $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Game')->getNbPostDay($date1, $date2);
 
@@ -46,12 +51,12 @@ class Game
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function purge()
     {
-        $date = new \DateTime();
-        $date = $date->sub(\DateInterval::createFromDateString('3 years'));
+        $date = new DateTime();
+        $date = $date->sub(DateInterval::createFromDateString('3 years'));
 
         //----- delete
         $query = $this->dwhEntityManager->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Game g WHERE g.date < :date');
@@ -67,7 +72,7 @@ class Game
      * @param $limit
      * @return array
      */
-    public function getTop(\DateTime $date1Begin, \DateTime $date1End, \DateTime $date2Begin, \DateTime $date2End, $limit = 20)
+    public function getTop(DateTime $date1Begin, DateTime $date1End, DateTime $date2Begin, DateTime $date2End, $limit = 20)
     {
         $gameList1 = $this->dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Game')->getTop(
             $date1Begin,
