@@ -144,7 +144,7 @@ class Article
                     $html .= sprintf(
                         '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
                         '#/' . $locale . '/' . $data['list'][$i]['player']->getUrl(),
-                        'https://picture.video-games-records.com/avatar/' . $data['list'][$i]['player']->getAvatar(),
+                        'https://picture.video-games-records.com/user/' . $data['list'][$i]['player']->getAvatar(),
                         $data['list'][$i]['player']->getPseudo()
                     );
                 }
@@ -201,7 +201,7 @@ class Article
                     $html .= sprintf(
                         '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
                         '#/' . $locale . '/' . $data['list'][$i]['game']->getUrl(),
-                        'https://picture.video-games-records.com/jeu/' . $data['list'][$i]['game']->getPicture(),
+                        'https://picture.video-games-records.com/game/' . $data['list'][$i]['game']->getPicture(),
                         $data['list'][$i]['game']->getName()
                     );
                 }
