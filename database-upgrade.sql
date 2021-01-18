@@ -15,7 +15,7 @@ ALTER TABLE `dwh_player` CHANGE `pointRecord` `pointChart` INT(11) NOT NULL DEFA
 ALTER TABLE `dwh_player` CHANGE `pointJeu` `pointGame` INT(11) NOT NULL;
 ALTER TABLE `dwh_player` CHANGE `rankPointJeu` `rankPointGame` INT(11) NOT NULL;
 ALTER TABLE `dwh_player` CHANGE `rankPoint` `rankPointChart` INT(11) NOT NULL DEFAULT '0';
-ALTER TABLE `dwh_player` CHANGE `nbPostJour` `nbPostDay` INT(11 NOT NULL;
+ALTER TABLE `dwh_player` CHANGE `nbPostJour` `nbPostDay` INT(11) NOT NULL;
 ALTER TABLE `dwh_player` CHANGE `nbPost` `nbChart` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE `dwh_player` CHANGE `rank0` `chartRank0` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE `dwh_player` CHANGE `rank1` `chartRank1` INT(11) NOT NULL DEFAULT '0';
