@@ -138,11 +138,11 @@ class Article
         $html = '';
 
         if (count($data['list']) > 0) {
-            $html .= '<div align="center">';
+            $html .= '<div class="article-top article-top__players">';
             for ($i = 0; $i <= 2; $i++) {
                 if (array_key_exists($i, $data['list'])) {
                     $html .= sprintf(
-                        '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
+                        '<a href="%s"><img src="%s" alt="%s" class="article-top__player" /></a>',
                         '#/' . $locale . '/' . $data['list'][$i]['player']->getUrl(),
                         'https://picture.video-games-records.com/user/' . $data['list'][$i]['player']->getAvatar(),
                         $data['list'][$i]['player']->getPseudo()
@@ -152,9 +152,16 @@ class Article
                     $html .= '<br />';
                 }
             }
-            $html .= '</div>';
-            $html .= '<br />';
-            $html .= '<table border="0">';
+            
+            $html .= '<table class="article-top__table">';
+            $html .= '<thead>';
+            $html .= '<tr>';
+            $html .= '<th scope="col"><abbr title="Rank">#</abbr></th>';
+            $html .= '<th scope="col">Player</th>';
+            $html .= '<th scope="col">Posts submitted</th>';
+            $html .= '<th scope="col">Position change</th>';
+            $html .= '</tr>';
+            $html .= '</tr>';
             $html .= '<tbody>';
 
             foreach ($data['list'] as $row) {
@@ -179,6 +186,7 @@ class Article
             $html .= sprintf($this->getHtmlBottom2(), $data['nbTotalPost']);
             $html .= '</tbody>';
             $html .= '</table>';
+            $html .= '</div>';
         }
 
         return $html;
@@ -194,12 +202,12 @@ class Article
         $html = '';
 
         if (count($data['list']) > 0) {
-            $html .= '<div align="center">';
+            $html .= '<div class="article-top article-top__games">';
 
             for ($i = 0; $i <= 2; $i++) {
                 if (array_key_exists($i, $data['list'])) {
                     $html .= sprintf(
-                        '<a href="%s"><img hspace="10" src="%s" alt="%s" /></a>',
+                        '<a href="%s"><img src="%s" alt="%s" class="article-top__game" /></a>',
                         '#/' . $locale . '/' . $data['list'][$i]['game']->getUrl(),
                         'https://picture.video-games-records.com/game/' . $data['list'][$i]['game']->getPicture(),
                         $data['list'][$i]['game']->getName()
@@ -209,9 +217,16 @@ class Article
                     $html .= '<br />';
                 }
             }
-            $html .= '</div>';
-            $html .= '<br />';
-            $html .= '<table border="0">';
+
+            $html .= '<table class="article-top__table">';
+            $html .= '<thead>';
+            $html .= '<tr>';
+            $html .= '<th scope="col"><abbr title="Rank">#</abbr></th>';
+            $html .= '<th scope="col">Game</th>';
+            $html .= '<th scope="col">Posts submitted</th>';
+            $html .= '<th scope="col">Position change</th>';
+            $html .= '</tr>';
+            $html .= '</tr>';
             $html .= '<tbody>';
 
             foreach ($data['list'] as $row) {
@@ -235,6 +250,7 @@ class Article
             $html .= sprintf($this->getHtmlBottom2(), $data['nbTotalPost']);
             $html .= '</tbody>';
             $html .= '</table>';
+            $html .= '</div>';
         }
 
         return $html;
@@ -250,17 +266,17 @@ class Article
         if ($row['oldRank'] != null) {
             if ($row['rank'] < $row['oldRank']) {
                 if ($row['oldRank'] > $nbGame) {
-                    $col = '<div class="blue">(N)</div>';
+                    $col = '<span class="article-top--new"><abbr title="New">N</abbr></span>';
                 } else {
-                    $col = sprintf('<div class="green">(+%d)</div>', $row['oldRank'] - $row['rank']);
+                    $col = sprintf('<span class="article-top--up">+%d <span class="screen-reader-text">position</span></span>', $row['oldRank'] - $row['rank']);
                 }
             } elseif ($row['rank'] > $row['oldRank']) {
-                $col = sprintf('<div class="red">(-%d)</div>', $row['rank'] - $row['oldRank']);
+                $col = sprintf('<span class="article-top--down">-%d <span class="screen-reader-text">position</span></span>', $row['rank'] - $row['oldRank']);
             } else {
-                $col = '<div class="grey">(=)</div>';
+                $col = '<span class="article-top--equal"><abbr title="Same position">=</abbr></span>';
             }
         } else {
-            $col = '<div class="blue">(N)</div>';
+            $col = '<span class="article-top--new"><abbr title="New">N</abbr></span>';
         }
         return $col;
     }
@@ -273,13 +289,13 @@ class Article
     {
         return '
             <tr>
-                <td align="center">%d</td>
-                <td class="center" width="344">
+                <td>%d</td>
+                <td>
 		            <a href="%s">%s</a>
 	            </td>
-	            <td width="82" align="right">%s posts</td>
-	            <td width="40" align="center">
-	             %s
+	            <td>%s posts</td>
+	            <td>
+	                %s
 	            </td>
 	        </tr>';
     }
@@ -289,12 +305,10 @@ class Article
      */
     private function getHtmlBottom1()
     {
-        return  '
+        return '
             <tr>
-                <td align="right">%d - %d</td>
-                <td width="334"></td>
-                <td width="82" align="right">%d posts</td>
-                <td></td>
+                <td colspan="2" class="article-top__bottom-left">%d - %d</td>
+                <td colspan="2" class="article-top__bottom-right">%d posts</td>
             </tr>';
     }
 
@@ -303,12 +317,12 @@ class Article
      */
     private function getHtmlBottom2()
     {
-        return '  
-            <tr>
-                <td align="right">Total</td>
-                <td width="334"></td>
-                <td width="82" align="right">%d posts</td>
-                <td></td>
-            </tr>';
+        return '
+            <tfooter>
+                <tr>
+                    <th scope="row" colspan="2" class="article-top__bottom-left">Total</th>
+                    <td colspan="2" class="article-top__bottom-right">%d posts</td>
+                </tr>
+            </tfooter>';
     }
 }
