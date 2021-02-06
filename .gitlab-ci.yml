@@ -29,7 +29,7 @@ phpunit:7.2:
 
 .base-deploy:
   variables:
-    PROJECT_DIR: /home/deploy/projects/bundles/VideoGamesRecords/DwhBundle/
+    PROJECT_DIR: $DIRECTORY_VGR_BUNDLES/DwhBundle/
   script:
     - apk update && apk upgrade
     - apk add openssh bash rsync
