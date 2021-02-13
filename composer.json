@@ -7,12 +7,8 @@
     {
       "name": "Benard David",
       "email": "magicbart@gmail.com",
-      "role": "Developer"
-    },
-    {
-      "name": "Verlhac Gaëtan",
-      "email": "viviengaetan69@gmail.com",
-      "role": "Developer"
+      "homepage": "https://www.vgr-magicbart.com/",
+      "role": "Developper"
     }
   ],
   "require": {
