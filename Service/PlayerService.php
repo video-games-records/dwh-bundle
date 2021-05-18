@@ -181,4 +181,29 @@ class PlayerService
             $object->getChartRank(30),
         );
     }
+
+     /**
+     * @param $idPlayer
+     * @return array
+     */
+    public function getMedalsByTime($idPlayer): array
+    {
+         $list = $this->playerRepository->findBy(array('id' => $idPlayer), array('date' => 'ASC'));
+
+         $return = [
+             'rank0' => [],
+             'rank1' => [],
+             'rank2' => [],
+             'rank3' => [],
+             'date' => [],
+         ];
+         foreach ($list as $object) {
+            $return['rank0'][] = $object->getChartRank0();
+            $return['rank1'][] = $object->getChartRank1();
+            $return['rank2'][] = $object->getChartRank2();
+            $return['rank3'][] = $object->getChartRank3();
+            $return['date'][] = $object->getDate();
+         }
+         return $return;
+    }
 }

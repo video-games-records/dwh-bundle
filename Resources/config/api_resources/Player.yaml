@@ -4,10 +4,14 @@ resources:
         collectionOperations:
             get:
                 normalization_context: {'groups': [dwh.player.read]}
-            stats:
+            get-positions:
                 method: 'GET'
                 path: '/dwh_players/get-positions'
                 controller: 'VideoGamesRecords\DwhBundle\Controller\PlayerController::getPositions'
+            get-medals-by-time:
+                method: 'GET'
+                path: '/dwh_players/get-medals-by-time'
+                controller: 'VideoGamesRecords\DwhBundle\Controller\PlayerController::getMedalsByTime'
         itemOperations:
             get:
                 normalization_context: {'groups': [dwh.player.read]}

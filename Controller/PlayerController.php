@@ -23,11 +23,21 @@ class PlayerController extends AbstractController
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return array
      */
-    public function getPositions(Request $request)
+    public function getPositions(Request $request): array
     {
         $idPlayer = $request->query->get('idPlayer', null);
         return $this->playerService->getPositions($idPlayer);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function getMedalsByTime(Request $request): array
+    {
+        $idPlayer = $request->query->get('idPlayer', null);
+        return $this->playerService->getMedalsByTime($idPlayer);
     }
 }
