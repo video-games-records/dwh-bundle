@@ -7,17 +7,17 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\Article as Service;
+use VideoGamesRecords\DwhBundle\Service\ArticleService;
 
 class ArticleCommand extends Command
 {
     protected static $defaultName = 'vgr-dwh:article';
 
-    private $service;
+    private $articleService;
 
-    public function __construct(Service $service)
+    public function __construct(ArticleService $articleService)
     {
-        $this->service = $service;
+        $this->articleService = $articleService;
         parent::__construct();
     }
 
@@ -43,7 +43,7 @@ class ArticleCommand extends Command
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return bool
+     * @return int
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -55,10 +55,10 @@ class ArticleCommand extends Command
         }
         switch ($function) {
             case 'top-week':
-                $this->service->postTopWeek($date);
+                $this->articleService->postTopWeek($date);
                 break;
             case 'top-month':
-                $this->service->postTopMonth($date);
+                $this->articleService->postTopMonth($date);
                 break;
         }
         return 0;

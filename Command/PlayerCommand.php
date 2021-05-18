@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\Player as Service;
+use VideoGamesRecords\DwhBundle\Service\PlayerService;
 
 class PlayerCommand extends Command
 {
@@ -14,7 +14,7 @@ class PlayerCommand extends Command
 
     private $service;
 
-    public function __construct(Service $service)
+    public function __construct(PlayerService $service)
     {
         $this->service = $service;
         parent::__construct();
@@ -35,7 +35,7 @@ class PlayerCommand extends Command
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return bool
+     * @return int
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
