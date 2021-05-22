@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\Game as Service;
+use VideoGamesRecords\DwhBundle\Service\GameService;
 
 class GameCommand extends Command
 {
@@ -14,7 +14,7 @@ class GameCommand extends Command
 
     private $service;
 
-    public function __construct(Service $service)
+    public function __construct(GameService $service)
     {
         $this->service = $service;
         parent::__construct();

@@ -9,7 +9,7 @@ use Exception;
 use VideoGamesRecords\DwhBundle\Entity\Team as DwhTeam;
 use VideoGamesRecords\DwhBundle\Repository\TeamRepository;
 
-class Team
+class TeamService
 {
     private $dwhEntityManager;
     private $defaultEntityManager;

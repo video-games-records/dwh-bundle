@@ -9,7 +9,7 @@ use Exception;
 use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
 
-class Game
+class GameService
 {
     private $dwhEntityManager;
     private $defaultEntityManager;

@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\Team as Service;
+use VideoGamesRecords\DwhBundle\Service\TeamService;
 
 class TeamCommand extends Command
 {
@@ -14,7 +14,7 @@ class TeamCommand extends Command
 
     private $service;
 
-    public function __construct(Service $service)
+    public function __construct(TeamService $service)
     {
         $this->service = $service;
         parent::__construct();

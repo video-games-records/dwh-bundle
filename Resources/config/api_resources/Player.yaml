@@ -1,0 +1,17 @@
+resources:
+    VideoGamesRecords\DwhBundle\Entity\Player:
+        shortName: 'DwhPlayer'
+        collectionOperations:
+            get:
+                normalization_context: {'groups': [dwh.player.read]}
+            get-positions:
+                method: 'GET'
+                path: '/dwh_players/get-positions'
+                controller: 'VideoGamesRecords\DwhBundle\Controller\PlayerController::getPositions'
+            get-medals-by-time:
+                method: 'GET'
+                path: '/dwh_players/get-medals-by-time'
+                controller: 'VideoGamesRecords\DwhBundle\Controller\PlayerController::getMedalsByTime'
+        itemOperations:
+            get:
+                normalization_context: {'groups': [dwh.player.read]}
