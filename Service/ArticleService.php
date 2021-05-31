@@ -141,7 +141,7 @@ class ArticleService
                 if (array_key_exists($i, $data['list'])) {
                     $html .= sprintf(
                         '<a href="%s"><img src="%s" alt="%s" class="article-top__player" /></a>',
-                        $locale . '/' . $data['list'][$i]['player']->getUrl(),
+                        '/' . $locale . '/' . $data['list'][$i]['player']->getUrl(),
                         'https://picture.video-games-records.com/user/' . $data['list'][$i]['player']->getAvatar(),
                         $data['list'][$i]['player']->getPseudo()
                     );
@@ -166,7 +166,7 @@ class ArticleService
                 $html .= sprintf(
                     $this->getHtmLine(),
                     $row['rank'],
-                    $locale . '/' . $row['player']->getUrl(),
+                    '/' . $locale . '/' . $row['player']->getUrl(),
                     (($row['player'] != null) ? $row['player']->getPseudo() : '???'),
                     $row['nb'],
                     $this->diff($row, count($data['list']))
@@ -206,7 +206,7 @@ class ArticleService
                 if (array_key_exists($i, $data['list'])) {
                     $html .= sprintf(
                         '<a href="%s"><img src="%s" alt="%s" class="article-top__game" /></a>',
-                         $locale . '/' . $data['list'][$i]['game']->getUrl(),
+                        '/' . $locale . '/' . $data['list'][$i]['game']->getUrl(),
                         'https://picture.video-games-records.com/game/' . $data['list'][$i]['game']->getPicture(),
                         $data['list'][$i]['game']->getName()
                     );
@@ -231,7 +231,7 @@ class ArticleService
                 $html .= sprintf(
                     $this->getHtmLine(),
                     $row['rank'],
-                    $locale . '/' . $row['game']->getUrl(),
+                    '/' . $locale . '/' . $row['game']->getUrl(),
                     $row['game']->getName(),
                     $row['nb'],
                     $this->diff($row, count($data['list']))
