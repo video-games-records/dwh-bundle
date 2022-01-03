@@ -60,6 +60,9 @@ class ArticleCommand extends Command
             case 'top-month':
                 $this->articleService->postTopMonth($date);
                 break;
+            case 'top-year':
+                $this->articleService->postTopYear($date);
+                break;
         }
         return 0;
     }

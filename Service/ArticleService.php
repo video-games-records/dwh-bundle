@@ -126,12 +126,58 @@ class ArticleService
     }
 
 
+     /**
+     * @param $day
+     * @throws Exception
+     */
+    public function postTopYear($day)
+    {
+        $date1Begin = new DateTime($day);
+        $date1End = new DateTime($day);
+
+        $date1End->sub(new DateInterval('P1D'));
+        $date1Begin->sub(new DateInterval('P1Y'));
+
+        $date2Begin = clone($date1Begin);
+        $date2End = clone($date1End);
+
+        $date2Begin->sub(new DateInterval('P1Y'));
+        $date2End->sub(new DateInterval('P1Y'));
+
+        $year = $date1Begin->format('Y');
+
+        $gamesData  = $this->gameService->getTop($date1Begin, $date1End, $date2Begin, $date2End, 100);
+        $gamesHtmlEn = $this->getHtmlTopGame($gamesData, 'en');
+        $gamesHtmlFr = $this->getHtmlTopGame($gamesData, 'fr');
+
+
+        $playersData  = $this->playerService->getTop($date1Begin, $date1End, $date2Begin, $date2End, 100);
+        $playersHtmlEn = $this->getHtmlTopPlayer($playersData, 'en');
+        $playersHtmlFr = $this->getHtmlTopPlayer($playersData, 'fr');
+
+        $textEn = $gamesHtmlEn . '<br /><br />' . $playersHtmlEn;
+        $textFr = $gamesHtmlFr . '<br /><br />' . $playersHtmlFr;
+
+        $this->writer->write(
+            array(
+                'en' => 'Top of year #' . $year,
+                'fr' => 'Top de l\'année #' . $year,
+            ),
+            array(
+                'en' => $textEn,
+                'fr' => $textFr,
+            ),
+            $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
+        );
+    }
+
+
     /**
      * @param        $data
      * @param string $locale
      * @return string
      */
-    public function getHtmlTopPlayer($data, $locale = 'en')
+    public function getHtmlTopPlayer($data, string $locale = 'en'): string
     {
         $html = '';
 
@@ -195,7 +241,7 @@ class ArticleService
      * @param string $locale
      * @return string
      */
-    private function getHtmlTopGame($data, $locale = 'en')
+    private function getHtmlTopGame($data, string $locale = 'en')
     {
         $html = '';
 
@@ -259,7 +305,7 @@ class ArticleService
      * @param $nbGame
      * @return string
      */
-    private function diff($row, $nbGame)
+    private function diff($row, $nbGame): string
     {
         if ($row['oldRank'] != null) {
             if ($row['rank'] < $row['oldRank']) {
@@ -283,7 +329,7 @@ class ArticleService
     /**
      * @return string
      */
-    private function getHtmLine()
+    private function getHtmLine(): string
     {
         return '
             <tr>
@@ -301,7 +347,7 @@ class ArticleService
     /**
      * @return string
      */
-    private function getHtmlBottom1()
+    private function getHtmlBottom1(): string
     {
         return '
             <tr>
@@ -313,7 +359,7 @@ class ArticleService
     /**
      * @return string
      */
-    private function getHtmlBottom2()
+    private function getHtmlBottom2(): string
     {
         return '
             <tfooter>
