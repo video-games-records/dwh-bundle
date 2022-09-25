@@ -18,8 +18,7 @@
     "symfony/validator": "^4.4 || ^5.1",
     "symfony/framework-bundle": "^4.4 || ^5.1",
     "video-games-records/core-bundle": "*",
-    "projet-normandie/article-bundle": "*",
-    "abraham/twitteroauth": "^1.1"
+    "projet-normandie/article-bundle": "*"
   },
   "suggest": {
     "doctrine/doctrine-fixtures-bundle": "To be able to load fixtures"
