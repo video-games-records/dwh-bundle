@@ -1,41 +1,40 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\Service;
+namespace VideoGamesRecords\DwhBundle\Service\Dwh;
 
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use VideoGamesRecords\DwhBundle\Entity\Team as DwhTeam;
-use VideoGamesRecords\DwhBundle\Repository\TeamRepository;
+use VideoGamesRecords\DwhBundle\Interface\DwhTableInterface;
+use VideoGamesRecords\CoreBundle\Repository\teamRepository as CoreTeamRepository;
 
-class TeamService
+class DwhTeamHandler implements DwhTableInterface
 {
-    private $dwhEntityManager;
-    private $defaultEntityManager;
-
-    /** @var TeamRepository  */
-    private $teamRepository;
+    private EntityManager $dwhEntityManager;
+    private EntityManager $defaultEntityManager;
 
     public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
-        $this->teamRepository = $dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Team');
     }
 
     /**
      * @throws Exception
      */
-    public function maj()
+    public function process(): void
     {
         $date1 = new DateTime();
         $date1->sub(new DateInterval('P1D'));
         $date2 = new DateTime();
 
-        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getNbPostDay($date1, $date2);
+         /** @var CoreTeamRepository $coreTeamRepository */
+        $coreTeamRepository = $this->defaultEntityManager->getRepository('VideoGamesRecords\CoreBundle\Entity\Player');
 
-        $list = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getDataForDwh();
+        $data1 = $coreTeamRepository->getNbPostDay($date1, $date2);
+        $list = $coreTeamRepository->getDataForDwh();
 
         foreach ($list as $row) {
             $idTeam = $row['id'];
@@ -52,7 +51,7 @@ class TeamService
     /**
      * @throws Exception
      */
-    public function purge()
+    public function purge(): void
     {
         $date = new DateTime();
         $date = $date->sub(DateInterval::createFromDateString('3 years'));

@@ -13,7 +13,7 @@ class ArticleCommand extends Command
 {
     protected static $defaultName = 'vgr-dwh:article';
 
-    private $articleService;
+    private ArticleService $articleService;
 
     public function __construct(ArticleService $articleService)
     {

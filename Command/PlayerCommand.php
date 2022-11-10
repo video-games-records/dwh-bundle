@@ -6,17 +6,17 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\PlayerService;
+use VideoGamesRecords\DwhBundle\Service\Dwh\DwhPlayerHandler;
 
 class PlayerCommand extends Command
 {
     protected static $defaultName = 'vgr-dwh:player';
 
-    private $service;
+    private DwhPlayerHandler $dwhPlayerHandler;
 
-    public function __construct(PlayerService $service)
+    public function __construct(DwhPlayerHandler $dwhPlayerHandler)
     {
-        $this->service = $service;
+        $this->dwhPlayerHandler = $dwhPlayerHandler;
         parent::__construct();
     }
 
@@ -38,15 +38,15 @@ class PlayerCommand extends Command
      * @return int
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $this->service->maj();
+                $this->dwhPlayerHandler->process();
                 break;
             case 'purge':
-                $this->service->purge();
+                $this->dwhPlayerHandler->purge();
                 break;
         }
         return 0;
