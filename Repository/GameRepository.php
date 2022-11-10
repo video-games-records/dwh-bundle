@@ -15,7 +15,7 @@ class GameRepository extends EntityRepository
      * @param integer  $limit
      * @return array
      */
-    public function getTop(DateTime $begin, DateTime $end, $limit = 20)
+    public function getTop(DateTime $begin, DateTime $end, int $limit = 20): array
     {
         $query = $this->_em->createQuery("
             SELECT g.id,
@@ -40,7 +40,7 @@ class GameRepository extends EntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getTotalNbGame(DateTime $begin, DateTime $end)
+    public function getTotalNbGame(DateTime $begin, DateTime $end): mixed
     {
         $query = $this->_em->createQuery("
             SELECT COUNT(DISTINCT(g.id)) as nb
@@ -61,7 +61,7 @@ class GameRepository extends EntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getTotalNbPostDay(DateTime $begin, DateTime $end)
+    public function getTotalNbPostDay(DateTime $begin, DateTime $end): mixed
     {
         $query = $this->_em->createQuery("
             SELECT SUM(g.nbPostDay) as nb
