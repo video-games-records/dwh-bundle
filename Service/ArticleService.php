@@ -3,24 +3,20 @@ namespace VideoGamesRecords\DwhBundle\Service;
 
 use DateInterval;
 use DateTime;
-use Doctrine\ORM\EntityManager;
 use Exception;
 use ProjetNormandie\ArticleBundle\Service\Writer;
 
 class ArticleService
 {
-    private EntityManager $defaultEntityManager;
     private TopGameProvider $topGameProvider;
     private TopPlayerProvider $topPlayerProvider;
     private Writer $writer;
 
     public function __construct(
-        EntityManager $defaultEntityManager,
         TopGameProvider $topGameProvider,
         TopPlayerProvider $topPlayerProvider,
         Writer $writer
     ) {
-        $this->defaultEntityManager = $defaultEntityManager;
         $this->topGameProvider = $topGameProvider;
         $this->topPlayerProvider = $topPlayerProvider;
         $this->writer = $writer;
@@ -65,8 +61,7 @@ class ArticleService
             array(
                 'en' => $textEn,
                 'fr' => $textFr,
-            ),
-            $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
+            )
         );
     }
 
@@ -110,8 +105,7 @@ class ArticleService
             array(
                 'en' => $textEn,
                 'fr' => $textFr,
-            ),
-            $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
+            )
         );
     }
 
@@ -120,7 +114,7 @@ class ArticleService
      * @param $day
      * @throws Exception
      */
-    public function postTopYear($day)
+    public function postTopYear($day): void
     {
         $date1Begin = new DateTime($day);
         $date1End = new DateTime($day);
@@ -156,8 +150,7 @@ class ArticleService
             array(
                 'en' => $textEn,
                 'fr' => $textFr,
-            ),
-            $this->defaultEntityManager->getReference('VideoGamesRecords\CoreBundle\Entity\User\UserInterface', 1)
+            )
         );
     }
 

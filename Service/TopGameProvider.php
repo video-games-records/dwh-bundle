@@ -2,7 +2,7 @@
 namespace VideoGamesRecords\DwhBundle\Service;
 
 use DateTime;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
@@ -11,10 +11,10 @@ use VideoGamesRecords\CoreBundle\Repository\GameRepository as CoreGameRepository
 
 class TopGameProvider
 {
-    private EntityManager $dwhEntityManager;
-    private EntityManager $defaultEntityManager;
+    private EntityManagerInterface $dwhEntityManager;
+    private EntityManagerInterface $defaultEntityManager;
 
-    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
+    public function __construct(EntityManagerInterface $dwhEntityManager, EntityManagerInterface $defaultEntityManager)
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->defaultEntityManager = $defaultEntityManager;
