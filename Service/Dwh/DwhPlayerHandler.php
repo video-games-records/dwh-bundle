@@ -5,20 +5,19 @@ use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Exception;
-use VideoGamesRecords\CoreBundle\Repository\PlayerChartRepository as CorePlayerChartRepository;
-use VideoGamesRecords\CoreBundle\Repository\PlayerRepository as CorePlayerRepository;
+use VideoGamesRecords\CoreBundle\Service\Dwh\DwhPlayerProvider;
 use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 use VideoGamesRecords\DwhBundle\Interface\DwhTableInterface;
 
 class DwhPlayerHandler implements DwhTableInterface
 {
     private EntityManager $dwhEntityManager;
-    private EntityManager $defaultEntityManager;
+    private DwhPlayerProvider $dwhPlayerProvider;
 
-    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager,DwhPlayerProvider $dwhPlayerProvider)
     {
         $this->dwhEntityManager = $dwhEntityManager;
-        $this->defaultEntityManager = $defaultEntityManager;
+        $this->dwhPlayerProvider = $dwhPlayerProvider;
     }
 
     /**
@@ -30,15 +29,9 @@ class DwhPlayerHandler implements DwhTableInterface
         $date1->sub(new DateInterval('P1D'));
         $date2 = new DateTime();
 
-        /** @var CorePlayerChartRepository $corePlayerChartRepository */
-        $corePlayerChartRepository = $this->defaultEntityManager->getRepository('VideoGamesRecords\CoreBundle\Entity\PlayerChart');
-
-        /** @var CorePlayerRepository $corePlayerRepository */
-        $corePlayerRepository = $this->defaultEntityManager->getRepository('VideoGamesRecords\CoreBundle\Entity\Player');
-
-        $data1 = $corePlayerChartRepository->getNbPostDay($date1, $date2);
-        $data2 = $corePlayerChartRepository->getDataRank();
-        $list = $corePlayerRepository->getDataForDwh();
+        $data1 = $this->dwhPlayerProvider->getNbPostDay($date1, $date2);
+        $data2 = $this->dwhPlayerProvider->getDataRank();
+        $list = $this->dwhPlayerProvider->getDataForDwh();
 
         foreach ($list as $row) {
             $idPlayer = $row['id'];

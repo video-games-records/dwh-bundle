@@ -6,19 +6,19 @@ use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Exception;
+use VideoGamesRecords\CoreBundle\Service\Dwh\DwhTeamProvider;
 use VideoGamesRecords\DwhBundle\Entity\Team as DwhTeam;
 use VideoGamesRecords\DwhBundle\Interface\DwhTableInterface;
-use VideoGamesRecords\CoreBundle\Repository\teamRepository as CoreTeamRepository;
 
 class DwhTeamHandler implements DwhTableInterface
 {
     private EntityManager $dwhEntityManager;
-    private EntityManager $defaultEntityManager;
+    private DwhTeamProvider $dwhTeamProvider;
 
-    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager, DwhTeamProvider $dwhTeamProvider)
     {
         $this->dwhEntityManager = $dwhEntityManager;
-        $this->defaultEntityManager = $defaultEntityManager;
+        $this->dwhTeamProvider = $dwhTeamProvider;
     }
 
     /**
@@ -30,11 +30,8 @@ class DwhTeamHandler implements DwhTableInterface
         $date1->sub(new DateInterval('P1D'));
         $date2 = new DateTime();
 
-         /** @var CoreTeamRepository $coreTeamRepository */
-        $coreTeamRepository = $this->defaultEntityManager->getRepository('VideoGamesRecords\CoreBundle\Entity\Player');
-
-        $data1 = $coreTeamRepository->getNbPostDay($date1, $date2);
-        $list = $coreTeamRepository->getDataForDwh();
+        $data1 = $this->dwhTeamProvider->getNbPostDay($date1, $date2);
+        $list = $this->dwhTeamProvider->getDataForDwh();
 
         foreach ($list as $row) {
             $idTeam = $row['id'];

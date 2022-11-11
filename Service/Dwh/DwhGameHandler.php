@@ -7,18 +7,19 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Exception;
 use VideoGamesRecords\CoreBundle\Repository\GameRepository as CoreGameRepository;
+use VideoGamesRecords\CoreBundle\Service\Dwh\DwhTeamProvider;
 use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 use VideoGamesRecords\DwhBundle\Interface\DwhTableInterface;
 
 class DwhGameHandler implements DwhTableInterface
 {
     private EntityManager $dwhEntityManager;
-    private EntityManager $defaultEntityManager;
+    private DwhTeamProvider $dwhTeamProvider;
 
-    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager, DwhTeamProvider $dwhTeamProvider)
     {
         $this->dwhEntityManager = $dwhEntityManager;
-        $this->defaultEntityManager = $defaultEntityManager;
+        $this->dwhTeamProvider = $dwhTeamProvider;
     }
 
     /**
@@ -31,11 +32,8 @@ class DwhGameHandler implements DwhTableInterface
         $date1->sub(new DateInterval('P1D'));
         $date2 = new DateTime();
 
-        /** @var CoreGameRepository $coreGameRepository */
-        $coreGameRepository = $this->defaultEntityManager->getRepository('VideoGamesRecords\CoreBundle\Entity\Player');
-
-        $data1 = $coreGameRepository->getNbPostDay($date1, $date2);
-        $games = $coreGameRepository->findAll();
+        $data1 = $this->dwhTeamProvider->getNbPostDay($date1, $date2);
+        $games = $this->dwhTeamProvider->getDataForDwh();
 
         foreach ($games as $game) {
             $id = $game->getId();
