@@ -22,6 +22,9 @@
         "video-games-records/core-bundle": "*",
         "projet-normandie/article-bundle": "*"
     },
+    "require-dev": {
+        "symfony/framework-bundle": "^5.4"
+    },
     "suggest": {
         "doctrine/doctrine-fixtures-bundle": "To be able to load fixtures"
     },
