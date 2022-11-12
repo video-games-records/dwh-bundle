@@ -49,6 +49,6 @@ class GameCommand extends Command
                 $this->dwhGameHandler->purge();
                 break;
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

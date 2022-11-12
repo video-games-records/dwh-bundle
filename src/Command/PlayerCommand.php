@@ -49,6 +49,6 @@ class PlayerCommand extends Command
                 $this->dwhPlayerHandler->purge();
                 break;
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

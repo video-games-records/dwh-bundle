@@ -48,6 +48,6 @@ class TeamCommand extends Command
                 $this->dwhTeamHandler->purge();
                 break;
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

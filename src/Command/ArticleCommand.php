@@ -64,6 +64,6 @@ class ArticleCommand extends Command
                 $this->articleService->postTopYear($date);
                 break;
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }
