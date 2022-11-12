@@ -35,7 +35,7 @@ class DwhTeamHandler implements DwhTableInterface
 
         foreach ($list as $row) {
             $idTeam = $row['id'];
-            $dwhTeam= new DwhTeam();
+            $dwhTeam = new DwhTeam();
             $dwhTeam->setDate($date1->format('Y-m-d'));
             $dwhTeam->setFromArray($row);
             $dwhTeam->setNbPostDay((isset($data1[$idTeam])) ? $data1[$idTeam] : 0);

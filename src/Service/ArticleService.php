@@ -42,11 +42,11 @@ class ArticleService
 
         $week = $date1Begin->format('W');
 
-        $gamesData  = $this->topGameProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 20);
+        $gamesData = $this->topGameProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 20);
         $gamesHtmlEn = $this->getHtmlTopGame($gamesData, 'en');
         $gamesHtmlFr = $this->getHtmlTopGame($gamesData, 'fr');
 
-        $playersData  = $this->topPlayerProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 20);
+        $playersData = $this->topPlayerProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 20);
         $playersHtmlEn = $this->getHtmlTopPlayer($playersData, 'en');
         $playersHtmlFr = $this->getHtmlTopPlayer($playersData, 'fr');
 
@@ -86,11 +86,11 @@ class ArticleService
 
         $month = $date1Begin->format('F');
 
-        $gamesData  = $this->topGameProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 50);
+        $gamesData = $this->topGameProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 50);
         $gamesHtmlEn = $this->getHtmlTopGame($gamesData, 'en');
         $gamesHtmlFr = $this->getHtmlTopGame($gamesData, 'fr');
 
-        $playersData  = $this->topPlayerProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 50);
+        $playersData = $this->topPlayerProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 50);
         $playersHtmlEn = $this->getHtmlTopPlayer($playersData, 'en');
         $playersHtmlFr = $this->getHtmlTopPlayer($playersData, 'fr');
 
@@ -110,7 +110,7 @@ class ArticleService
     }
 
 
-     /**
+    /**
      * @param $day
      * @throws Exception
      */
@@ -130,12 +130,12 @@ class ArticleService
 
         $year = $date1Begin->format('Y');
 
-        $gamesData  = $this->topGameProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 100);
+        $gamesData = $this->topGameProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 100);
         $gamesHtmlEn = $this->getHtmlTopGame($gamesData, 'en');
         $gamesHtmlFr = $this->getHtmlTopGame($gamesData, 'fr');
 
 
-        $playersData  = $this->topPlayerProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 100);
+        $playersData = $this->topPlayerProvider->getTop($date1Begin, $date1End, $date2Begin, $date2End, 100);
         $playersHtmlEn = $this->getHtmlTopPlayer($playersData, 'en');
         $playersHtmlFr = $this->getHtmlTopPlayer($playersData, 'fr');
 

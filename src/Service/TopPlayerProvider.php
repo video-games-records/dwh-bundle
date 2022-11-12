@@ -54,7 +54,7 @@ class TopPlayerProvider
         }
 
         $nbPostFromList = 0;
-        for ($i=0, $nb=count($playerList1) - 1; $i <= $nb; ++$i) {
+        for ($i = 0, $nb = count($playerList1) - 1; $i <= $nb; ++$i) {
             $idPlayer = $playerList1[$i]['id'];
             if (isset($oldRank[$idPlayer])) {
                 $playerList1[$i]['oldRank'] = $oldRank[$idPlayer];
@@ -69,13 +69,13 @@ class TopPlayerProvider
         $nbPlayer = 0;
         try {
             $nbPlayer = $dwhPlayerRepository->getTotalNbPlayer($date1Begin, $date1End);
-        } catch (NoResultException|NonUniqueResultException $e) {
+        } catch (NoResultException | NonUniqueResultException $e) {
         }
 
         $nbTotalPost = 0;
         try {
             $nbTotalPost = $dwhPlayerRepository->getTotalNbPostDay($date1Begin, $date1End);
-        } catch (NoResultException|NonUniqueResultException $e) {
+        } catch (NoResultException | NonUniqueResultException $e) {
         }
 
         $playerList = ToolsRanking::addRank(

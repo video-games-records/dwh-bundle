@@ -14,7 +14,7 @@ class DwhPlayerHandler implements DwhTableInterface
     private EntityManager $dwhEntityManager;
     private DwhPlayerProvider $dwhPlayerProvider;
 
-    public function __construct(EntityManager $dwhEntityManager,DwhPlayerProvider $dwhPlayerProvider)
+    public function __construct(EntityManager $dwhEntityManager, DwhPlayerProvider $dwhPlayerProvider)
     {
         $this->dwhEntityManager = $dwhEntityManager;
         $this->dwhPlayerProvider = $dwhPlayerProvider;

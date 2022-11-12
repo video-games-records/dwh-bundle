@@ -30,7 +30,7 @@ class TopGameProvider
      */
     public function getTop(DateTime $date1Begin, DateTime $date1End, DateTime $date2Begin, DateTime $date2End, int $limit = 20): array
     {
-         /** @var DwhGameRepository $dwhGameRepository */
+        /** @var DwhGameRepository $dwhGameRepository */
         $dwhGameRepository = $this->dwhEntityManager->getRepository('VideoGamesRecords\DwhBundle\Entity\Game');
 
         /** @var CoreGameRepository $coreGameRepository */
@@ -54,7 +54,7 @@ class TopGameProvider
         }
 
         $nbPostFromList = 0;
-        for ($i=0, $nb=count($gameList1) - 1; $i <= $nb; ++$i) {
+        for ($i = 0, $nb = count($gameList1) - 1; $i <= $nb; ++$i) {
             $idGame = $gameList1[$i]['id'];
             if (isset($oldRank[$idGame])) {
                 $gameList1[$i]['oldRank'] = $oldRank[$idGame];
@@ -70,12 +70,12 @@ class TopGameProvider
         $nbGame = 0;
         try {
             $nbGame = $dwhGameRepository->getTotalNbGame($date1Begin, $date1End);
-        } catch (NoResultException|NonUniqueResultException $e) {
+        } catch (NoResultException | NonUniqueResultException $e) {
         }
         $nbTotalPost = 0;
         try {
             $nbTotalPost = $dwhGameRepository->getTotalNbPostDay($date1Begin, $date1End);
-        } catch (NoResultException|NonUniqueResultException $e) {
+        } catch (NoResultException | NonUniqueResultException $e) {
         }
 
         $gameList = ToolsRanking::addRank(
