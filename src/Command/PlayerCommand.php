@@ -6,24 +6,25 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\TeamService;
+use VideoGamesRecords\DwhBundle\Service\Dwh\DwhPlayerHandler;
 
-class TeamCommand extends Command
+class PlayerCommand extends Command
 {
-    protected static $defaultName = 'vgr-dwh:team';
+    protected static $defaultName = 'vgr-dwh:player';
 
-    private $service;
+    private DwhPlayerHandler $dwhPlayerHandler;
 
-    public function __construct(TeamService $service)
+    public function __construct(DwhPlayerHandler $dwhPlayerHandler)
     {
-        $this->service = $service;
+        $this->dwhPlayerHandler = $dwhPlayerHandler;
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this->setName('vgr-dwh:team')
-            ->setDescription('Command to update table vgr_team')
+        $this
+            ->setName('vgr-dwh:player')
+            ->setDescription('Command to update table vgr_dwh.player')
             ->addArgument(
                 'function',
                 InputArgument::REQUIRED,
@@ -34,20 +35,20 @@ class TeamCommand extends Command
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return bool
+     * @return int
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $this->service->maj();
+                $this->dwhPlayerHandler->process();
                 break;
             case 'purge':
-                $this->service->purge();
+                $this->dwhPlayerHandler->purge();
                 break;
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

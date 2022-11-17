@@ -133,7 +133,7 @@ class Team
      */
     public function setId(int $id)
     {
-        $this->id= $id;
+        $this->id = $id;
         return $this;
     }
 

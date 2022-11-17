@@ -1,45 +1,41 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\Service;
+namespace VideoGamesRecords\DwhBundle\Service\Dwh;
 
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Exception;
+use VideoGamesRecords\CoreBundle\Service\Dwh\DwhTeamProvider;
 use VideoGamesRecords\DwhBundle\Entity\Team as DwhTeam;
-use VideoGamesRecords\DwhBundle\Repository\TeamRepository;
+use VideoGamesRecords\DwhBundle\Interface\DwhTableInterface;
 
-class TeamService
+class DwhTeamHandler implements DwhTableInterface
 {
-    private $dwhEntityManager;
-    private $defaultEntityManager;
+    private EntityManager $dwhEntityManager;
+    private DwhTeamProvider $dwhTeamProvider;
 
-    /** @var TeamRepository  */
-    private $teamRepository;
-
-    public function __construct(EntityManager $dwhEntityManager, EntityManager $defaultEntityManager)
+    public function __construct(EntityManager $dwhEntityManager, DwhTeamProvider $dwhTeamProvider)
     {
         $this->dwhEntityManager = $dwhEntityManager;
-        $this->defaultEntityManager = $defaultEntityManager;
-        $this->teamRepository = $dwhEntityManager->getRepository('VideoGamesRecordsDwhBundle:Team');
+        $this->dwhTeamProvider = $dwhTeamProvider;
     }
 
     /**
      * @throws Exception
      */
-    public function maj()
+    public function process(): void
     {
         $date1 = new DateTime();
         $date1->sub(new DateInterval('P1D'));
         $date2 = new DateTime();
 
-        $data1 = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getNbPostDay($date1, $date2);
-
-        $list = $this->defaultEntityManager->getRepository('VideoGamesRecordsCoreBundle:Team')->getDataForDwh();
+        $data1 = $this->dwhTeamProvider->getNbPostDay($date1, $date2);
+        $list = $this->dwhTeamProvider->getDataForDwh();
 
         foreach ($list as $row) {
             $idTeam = $row['id'];
-            $dwhTeam= new DwhTeam();
+            $dwhTeam = new DwhTeam();
             $dwhTeam->setDate($date1->format('Y-m-d'));
             $dwhTeam->setFromArray($row);
             $dwhTeam->setNbPostDay((isset($data1[$idTeam])) ? $data1[$idTeam] : 0);
@@ -52,7 +48,7 @@ class TeamService
     /**
      * @throws Exception
      */
-    public function purge()
+    public function purge(): void
     {
         $date = new DateTime();
         $date = $date->sub(DateInterval::createFromDateString('3 years'));

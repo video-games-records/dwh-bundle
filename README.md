@@ -1,17 +1,11 @@
 VideoGamesRecordsDwhBundle
 =========================
 
-Master
-------
-
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/video-games-records/DwhBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/video-games-records/DwhBundle/?branch=master)
-[![Build Status](https://travis-ci.org/video-games-records/DwhBundle.svg?branch=master)](https://travis-ci.org/video-games-records/DwhBundle)
-
 Develop
 -------
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/video-games-records/DwhBundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/video-games-records/DwhBundle/?branch=develop)
-[![Build Status](https://travis-ci.org/video-games-records/DwhBundle.svg?branch=develop)](https://travis-ci.org/video-games-records/DwhBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/video-games-records/dwh-bundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/video-games-records/dwh-bundle/?branch=develop)
+[![Build Status](https://scrutinizer-ci.com/g/video-games-records/dwh-bundle/badges/build.png?b=develop)]()
 
 Installation
 ============

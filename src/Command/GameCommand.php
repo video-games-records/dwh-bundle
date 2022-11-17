@@ -6,25 +6,25 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use VideoGamesRecords\DwhBundle\Service\PlayerService;
+use VideoGamesRecords\DwhBundle\Service\Dwh\DwhGameHandler;
 
-class PlayerCommand extends Command
+class GameCommand extends Command
 {
-    protected static $defaultName = 'vgr-dwh:player';
+    protected static $defaultName = 'vgr-dwh:game';
 
-    private $service;
+    private DwhGameHandler $dwhGameHandler;
 
-    public function __construct(PlayerService $service)
+    public function __construct(DwhGameHandler $dwhGameHandler)
     {
-        $this->service = $service;
+        $this->dwhGameHandler = $dwhGameHandler;
         parent::__construct();
     }
 
     protected function configure()
     {
         $this
-            ->setName('vgr-dwh:player')
-            ->setDescription('Command to update table vgr_dwh.player')
+            ->setName('vgr-dwh:game')
+            ->setDescription('Command to update table vgr_dwh.game')
             ->addArgument(
                 'function',
                 InputArgument::REQUIRED,
@@ -38,17 +38,17 @@ class PlayerCommand extends Command
      * @return int
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $function = $input->getArgument('function');
         switch ($function) {
             case 'maj':
-                $this->service->maj();
+                $this->dwhGameHandler->process();
                 break;
             case 'purge':
-                $this->service->purge();
+                $this->dwhGameHandler->purge();
                 break;
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

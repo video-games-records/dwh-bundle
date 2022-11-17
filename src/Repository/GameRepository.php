@@ -3,26 +3,33 @@
 namespace VideoGamesRecords\DwhBundle\Repository;
 
 use DateTime;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\Persistence\ManagerRegistry;
+use VideoGamesRecords\DwhBundle\Entity\Game;
 
-class PlayerRepository extends EntityRepository
+class GameRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Game::class);
+    }
+
     /**
      * @param DateTime $begin
      * @param DateTime $end
      * @param integer  $limit
      * @return array
      */
-    public function getTop(DateTime $begin, DateTime $end, $limit = 20)
+    public function getTop(DateTime $begin, DateTime $end, int $limit = 20): array
     {
         $query = $this->_em->createQuery("
-            SELECT p.id,
-                   SUM(p.nbPostDay) as nb      
-            FROM VideoGamesRecords\DwhBundle\Entity\Player p
-            WHERE p.date BETWEEN :begin AND :end
-            GROUP BY p.id
+            SELECT g.id,
+                   SUM(g.nbPostDay) as nb      
+            FROM VideoGamesRecords\DwhBundle\Entity\Game g
+            WHERE g.date BETWEEN :begin AND :end
+            GROUP BY g.id
             HAVING nb > 0
             ORDER BY nb DESC");
 
@@ -40,13 +47,13 @@ class PlayerRepository extends EntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getTotalNbPlayer(DateTime $begin, DateTime $end)
+    public function getTotalNbGame(DateTime $begin, DateTime $end): mixed
     {
         $query = $this->_em->createQuery("
-            SELECT COUNT(DISTINCT(p.id)) as nb
-            FROM VideoGamesRecords\DwhBundle\Entity\Player p
-            WHERE p.date BETWEEN :begin AND :end
-            AND p.nbPostDay > 0");
+            SELECT COUNT(DISTINCT(g.id)) as nb
+            FROM VideoGamesRecords\DwhBundle\Entity\Game g
+            WHERE g.date BETWEEN :begin AND :end
+            AND g.nbPostDay > 0");
 
         $query->setParameter('begin', $begin);
         $query->setParameter('end', $end);
@@ -61,12 +68,12 @@ class PlayerRepository extends EntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getTotalNbPostDay(DateTime $begin, DateTime $end)
+    public function getTotalNbPostDay(DateTime $begin, DateTime $end): mixed
     {
         $query = $this->_em->createQuery("
-            SELECT SUM(p.nbPostDay) as nb
-            FROM VideoGamesRecords\DwhBundle\Entity\Player p
-            WHERE p.date BETWEEN :begin AND :end");
+            SELECT SUM(g.nbPostDay) as nb
+            FROM VideoGamesRecords\DwhBundle\Entity\Game g
+            WHERE g.date BETWEEN :begin AND :end");
 
         $query->setParameter('begin', $begin);
         $query->setParameter('end', $end);
