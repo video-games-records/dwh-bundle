@@ -67,15 +67,16 @@ class TopGameProvider
             $nbPostFromList += $gameList1[$i]['nb'];
         }
 
-        $nbGame = 0;
         try {
             $nbGame = $dwhGameRepository->getTotalNbGame($date1Begin, $date1End);
         } catch (NoResultException | NonUniqueResultException $e) {
+            // OK
         }
-        $nbTotalPost = 0;
+
         try {
             $nbTotalPost = $dwhGameRepository->getTotalNbPostDay($date1Begin, $date1End);
         } catch (NoResultException | NonUniqueResultException $e) {
+            // OK
         }
 
         $gameList = ToolsRanking::addRank(

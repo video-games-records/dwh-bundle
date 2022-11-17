@@ -66,16 +66,16 @@ class TopPlayerProvider
             $nbPostFromList += $playerList1[$i]['nb'];
         }
 
-        $nbPlayer = 0;
         try {
             $nbPlayer = $dwhPlayerRepository->getTotalNbPlayer($date1Begin, $date1End);
         } catch (NoResultException | NonUniqueResultException $e) {
+            // OK
         }
 
-        $nbTotalPost = 0;
         try {
             $nbTotalPost = $dwhPlayerRepository->getTotalNbPostDay($date1Begin, $date1End);
         } catch (NoResultException | NonUniqueResultException $e) {
+            // OK
         }
 
         $playerList = ToolsRanking::addRank(
