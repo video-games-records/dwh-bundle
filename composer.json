@@ -19,7 +19,7 @@
         "symfony/console": "^5.4 || ^6.0",
         "symfony/dependency-injection": "^5.4 || ^6.0",
         "symfony/http-kernel": "^5.4 || ^6.0",
-        "video-games-records/core-bundle": "dev-master"
+        "video-games-records/core-bundle": "*"
     },
     "require-dev": {
         "symfony/framework-bundle": "^5.4"
