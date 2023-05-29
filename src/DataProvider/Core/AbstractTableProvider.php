@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use VideoGamesRecords\DwhBundle\Contracts\DataProvider\CoreProviderInterface;
 use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
 
-class AbstractTablePlayerProvider implements DwhInterface, CoreProviderInterface
+class AbstractTableProvider implements DwhInterface, CoreProviderInterface
 {
     protected EntityManagerInterface $em;
 

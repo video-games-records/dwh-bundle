@@ -2,7 +2,7 @@
 
 namespace VideoGamesRecords\DwhBundle\DataProvider\Core;
 
-class GameProvider extends AbstractTablePlayerProvider
+class GameProvider extends AbstractTableProvider
 {
     /**
      * @return array

@@ -4,7 +4,7 @@ namespace VideoGamesRecords\DwhBundle\DataProvider\Core;
 
 use DateTime;
 
-class TeamProvider extends AbstractTablePlayerProvider
+class TeamProvider extends AbstractTableProvider
 {
     /**
      * @return array
