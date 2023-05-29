@@ -27,7 +27,7 @@ class GameStrategy extends AbstractTableManager implements TableStrategyInterfac
         $date2 = new DateTime();
 
         $data1 = $this->provider->getNbPostDay($date1, $date2);
-        $games = $this->provider->getDataForDwh();
+        $games = $this->provider->getData();
 
         foreach ($games as $game) {
             $id = $game->getId();

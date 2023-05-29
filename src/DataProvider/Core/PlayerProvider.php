@@ -11,9 +11,8 @@ class PlayerProvider extends AbstractTablePlayerProvider
      */
     public function getData(): array
     {
-        $query = $this->em->createQuery(
-            "
-            SELECT p.id,
+        $conn = $this->em->getConnection();
+        $sql = "SELECT p.id,
                    p.chartRank0,
                    p.chartRank1,
                    p.chartRank2,
@@ -24,10 +23,12 @@ class PlayerProvider extends AbstractTablePlayerProvider
                    p.nbChart,
                    p.pointGame,
                    p.rankPointGame                   
-            FROM VideoGamesRecords\CoreBundle\Entity\Player p
-            WHERE p.id <> 0"
-        );
-        return $query->getResult();
+            FROM vgr_player p
+            WHERE p.id <> 0";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
     }
 
     /**

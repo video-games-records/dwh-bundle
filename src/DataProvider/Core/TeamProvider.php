@@ -11,9 +11,8 @@ class TeamProvider extends AbstractTablePlayerProvider
      */
     public function getData(): array
     {
-        $query = $this->em->createQuery(
-            "
-            SELECT t.id,
+        $conn = $this->em->getConnection();
+        $sql = "SELECT t.id,
                    t.pointChart,
                    t.pointBadge,
                    t.chartRank0,
@@ -31,9 +30,11 @@ class TeamProvider extends AbstractTablePlayerProvider
                    t.nbMasterBadge,
                    t.pointGame,
                    t.rankPointGame                  
-            FROM VideoGamesRecords\CoreBundle\Entity\Team t"
-        );
-        return $query->getResult();
+            FROM vgr_team t";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
     }
 
     /**

@@ -28,7 +28,7 @@ class PlayerStrategy extends AbstractTableManager implements TableStrategyInterf
 
         $data1 = $this->provider->getNbPostDay($date1, $date2);
         $data2 = $this->provider->getDataRank();
-        $list = $this->provider->getDataForDwh();
+        $list = $this->provider->getData();
 
         foreach ($list as $row) {
             $idPlayer = $row['id'];

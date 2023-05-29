@@ -19,7 +19,6 @@ class AbstractTablePlayerProvider implements DwhInterface, CoreProviderInterface
     /**
      * @return array
      */
-
     public function getData(): array
     {
         return array();

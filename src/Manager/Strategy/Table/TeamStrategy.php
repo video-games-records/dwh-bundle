@@ -26,7 +26,7 @@ class TeamStrategy extends AbstractTableManager implements TableStrategyInterfac
         $date2 = new DateTime();
 
         $data1 = $this->provider->getNbPostDay($date1, $date2);
-        $list = $this->provider->getDataForDwh();
+        $list = $this->provider->getData();
 
         foreach ($list as $row) {
             $idTeam = $row['id'];
