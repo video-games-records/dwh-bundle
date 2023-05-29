@@ -2,13 +2,15 @@
 namespace VideoGamesRecords\DwhBundle\Command;
 
 use Exception;
+use InvalidArgumentException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
 use VideoGamesRecords\DwhBundle\Manager\TableManager;
 
-class TableCommand extends Command
+class TableCommand extends Command implements DwhInterface
 {
     protected static $defaultName = 'vgr-dwh:table';
 
@@ -26,14 +28,14 @@ class TableCommand extends Command
             ->setName('vgr-dwh:table')
             ->setDescription('Command to update table')
             ->addArgument(
-                'table',
+                'type',
                 InputArgument::REQUIRED,
-                'Who do you want to do?'
+                'Strategy type'
             )
             ->addArgument(
                 'function',
                 InputArgument::REQUIRED,
-                'Who do you want to do?'
+                'Call function'
             );
     }
 
@@ -45,9 +47,19 @@ class TableCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $type = $input->getArgument('type');
         $function = $input->getArgument('function');
-        $table = $input->getArgument('table');
-        $this->tableManager->getStrategy($table)->$function();
+
+
+        if (!array_key_exists($type, self::COMMAND_TYPES)) {
+            throw new InvalidArgumentException(sprintf('type [%s] is invalid', $type));
+        }
+
+        if (!array_key_exists($function, self::COMMAND_FUNCTIONS)) {
+            throw new InvalidArgumentException(sprintf('function [%s] is invalid', $function));
+        }
+
+        $this->tableManager->getStrategy($type)->$function();
         return Command::SUCCESS;
     }
 }

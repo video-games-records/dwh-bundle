@@ -7,7 +7,7 @@ class GameProvider extends AbstractTablePlayerProvider
     /**
      * @return array
      */
-    public function getDataForDwh(): array
+    public function getData(): array
     {
         return $this->em->getRepository('VideoGamesRecords\CoreBundle\Entity\Game')
             ->findAll();

@@ -9,7 +9,7 @@ class TeamProvider extends AbstractTablePlayerProvider
     /**
      * @return array
      */
-    public function getDataForDwh(): array
+    public function getData(): array
     {
         $query = $this->em->createQuery(
             "

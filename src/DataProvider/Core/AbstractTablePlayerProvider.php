@@ -4,9 +4,10 @@ namespace VideoGamesRecords\DwhBundle\DataProvider\Core;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use VideoGamesRecords\DwhBundle\Contracts\DataProvider\CoreProviderInterface;
 use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
 
-class AbstractTablePlayerProvider implements DwhInterface
+class AbstractTablePlayerProvider implements DwhInterface, CoreProviderInterface
 {
     protected EntityManagerInterface $em;
 
@@ -19,7 +20,7 @@ class AbstractTablePlayerProvider implements DwhInterface
      * @return array
      */
 
-    public function getDataForDwh(): array
+    public function getData(): array
     {
         return array();
     }
