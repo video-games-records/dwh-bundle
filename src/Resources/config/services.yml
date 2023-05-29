@@ -6,7 +6,3 @@ services:
     VideoGamesRecords\DwhBundle\:
         resource: '../../*'
         exclude: '../../{DependencyInjection,Entity,Migrations,Service,Tests,Kernel.php}'
-    VideoGamesRecords\DwhBundle\Service\TopGameProvider:
-        class: VideoGamesRecords\DwhBundle\Service\TopGameProvider
-    VideoGamesRecords\DwhBundle\Service\TopPlayerProvider:
-        class: VideoGamesRecords\DwhBundle\Service\TopPlayerProvider

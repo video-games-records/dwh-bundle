@@ -1,23 +1,19 @@
 <?php
-namespace VideoGamesRecords\DwhBundle\Service;
+namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top;
 
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
-use VideoGamesRecords\DwhBundle\Repository\PlayerRepository as DwhPlayerRepository;
 use VideoGamesRecords\CoreBundle\Repository\PlayerRepository as CorePlayerRepository;
+use VideoGamesRecords\CoreBundle\Tools\Ranking as ToolsRanking;
+use VideoGamesRecords\DwhBundle\Contracts\Strategy\TopStrategyInterface;
+use VideoGamesRecords\DwhBundle\Repository\PlayerRepository as DwhPlayerRepository;
 
-class TopPlayerProvider
+class TopPlayerStrategy extends AbstractTopProvider implements TopStrategyInterface
 {
-    private EntityManagerInterface $dwhEntityManager;
-    private EntityManagerInterface $defaultEntityManager;
-
-    public function __construct(EntityManagerInterface $dwhEntityManager, EntityManagerInterface $defaultEntityManager)
+    public function supports(string $name): bool
     {
-        $this->dwhEntityManager = $dwhEntityManager;
-        $this->defaultEntityManager = $defaultEntityManager;
+        return $name == self::TYPE_PLAYER;
     }
 
     /**

@@ -58,5 +58,4 @@ class GameStrategy extends AbstractTableManager implements TableStrategyInterfac
         $query->setParameter('date', $date->format('Y-m-d'));
         $query->execute();
     }
-
 }
