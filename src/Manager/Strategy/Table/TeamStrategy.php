@@ -1,25 +1,20 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\Service\Dwh;
+namespace VideoGamesRecords\DwhBundle\Manager\Strategy\Table;
 
 use DateInterval;
 use DateTime;
-use Doctrine\ORM\EntityManager;
 use Exception;
-use VideoGamesRecords\CoreBundle\Service\Dwh\DwhTeamProvider;
+use VideoGamesRecords\DwhBundle\Contracts\Strategy\TableStrategyInterface;
 use VideoGamesRecords\DwhBundle\Entity\Team as DwhTeam;
-use VideoGamesRecords\DwhBundle\Interface\DwhTableInterface;
 
-class DwhTeamHandler implements DwhTableInterface
+class TeamStrategy extends AbstractTableManager implements TableStrategyInterface
 {
-    private EntityManager $dwhEntityManager;
-    private DwhTeamProvider $dwhTeamProvider;
-
-    public function __construct(EntityManager $dwhEntityManager, DwhTeamProvider $dwhTeamProvider)
+    public function supports(string $name): bool
     {
-        $this->dwhEntityManager = $dwhEntityManager;
-        $this->dwhTeamProvider = $dwhTeamProvider;
+        return $name === self::TYPE_TEAM;
     }
+
 
     /**
      * @throws Exception
@@ -30,8 +25,8 @@ class DwhTeamHandler implements DwhTableInterface
         $date1->sub(new DateInterval('P1D'));
         $date2 = new DateTime();
 
-        $data1 = $this->dwhTeamProvider->getNbPostDay($date1, $date2);
-        $list = $this->dwhTeamProvider->getDataForDwh();
+        $data1 = $this->provider->getNbPostDay($date1, $date2);
+        $list = $this->provider->getDataForDwh();
 
         foreach ($list as $row) {
             $idTeam = $row['id'];
@@ -39,10 +34,10 @@ class DwhTeamHandler implements DwhTableInterface
             $dwhTeam->setDate($date1->format('Y-m-d'));
             $dwhTeam->setFromArray($row);
             $dwhTeam->setNbPostDay((isset($data1[$idTeam])) ? $data1[$idTeam] : 0);
-            $this->dwhEntityManager->persist($dwhTeam);
+            $this->em->persist($dwhTeam);
         }
 
-        $this->dwhEntityManager->flush();
+        $this->em->flush();
     }
 
     /**
@@ -54,7 +49,7 @@ class DwhTeamHandler implements DwhTableInterface
         $date = $date->sub(DateInterval::createFromDateString('3 years'));
 
         //----- delete
-        $query = $this->dwhEntityManager->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Team t WHERE t.date < :date');
+        $query = $this->em->createQuery('DELETE VideoGamesRecords\DwhBundle\Entity\Team t WHERE t.date < :date');
         $query->setParameter('date', $date->format('Y-m-d'));
         $query->execute();
     }

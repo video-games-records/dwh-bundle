@@ -27,6 +27,8 @@ class VideoGamesRecordsDwhExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        //$loader->load('admin.yml');
+        $loader->load('services/data_providers.yml');
+        $loader->load('services/managers.yml');
+        $loader->load('services/commands.yml');
     }
 }

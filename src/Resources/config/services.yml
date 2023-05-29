@@ -6,26 +6,6 @@ services:
     VideoGamesRecords\DwhBundle\:
         resource: '../../*'
         exclude: '../../{DependencyInjection,Entity,Migrations,Service,Tests,Kernel.php}'
-    VideoGamesRecords\DwhBundle\Service\Dwh\DwhPlayerHandler:
-        public: true
-        class:    VideoGamesRecords\DwhBundle\Service\Dwh\DwhPlayerHandler
-        arguments: [
-            "@=service('doctrine.orm.dwh_entity_manager')"
-            ]
-    VideoGamesRecords\DwhBundle\Service\Dwh\DwhGameHandler:
-        public: true
-        class:    VideoGamesRecords\DwhBundle\Service\Dwh\DwhGameHandler
-        arguments: [
-            "@=service('doctrine.orm.dwh_entity_manager')"
-            ]
-    VideoGamesRecords\DwhBundle\Service\Dwh\DwhTeamHandler:
-        public: true
-        class:    VideoGamesRecords\DwhBundle\Service\Dwh\DwhTeamHandler
-        arguments: [
-            "@=service('doctrine.orm.dwh_entity_manager')"
-            ]
-    VideoGamesRecords\DwhBundle\Service\ArticleService:
-        class:    VideoGamesRecords\DwhBundle\Service\ArticleService
     VideoGamesRecords\DwhBundle\Service\TopGameProvider:
         class: VideoGamesRecords\DwhBundle\Service\TopGameProvider
     VideoGamesRecords\DwhBundle\Service\TopPlayerProvider:

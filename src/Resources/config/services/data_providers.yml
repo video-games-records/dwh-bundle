@@ -1,0 +1,16 @@
+services:
+    vgr.dwh.data_provider.core.game:
+        class: VideoGamesRecords\DwhBundle\DataProvider\Core\GameProvider
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
+    vgr.dwh.data_provider.core.player:
+        class: VideoGamesRecords\DwhBundle\DataProvider\Core\PlayerProvider
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
+    vgr.dwh.data_provider.core.team:
+        class: VideoGamesRecords\DwhBundle\DataProvider\Core\TeamProvider
+        arguments:
+            - '@doctrine.orm.entity_manager'
+

@@ -1,0 +1,31 @@
+services:
+    vgr.dwh.manager.table:
+        class: VideoGamesRecords\DwhBundle\Manager\TableManager
+        calls:
+            - [ 'addStrategy', [ '@vgr.dwh.manager.strategy.table.game' ] ]
+            - [ 'addStrategy', [ '@vgr.dwh.manager.strategy.table.player' ] ]
+            - [ 'addStrategy', [ '@vgr.dwh.manager.strategy.table.team' ] ]
+
+    vgr.dwh.manager.strategy.table.player:
+        class: VideoGamesRecords\DwhBundle\Manager\Strategy\Table\PlayerStrategy
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')"
+        ]
+        calls:
+            - [ setProvider, [ "@vgr.dwh.data_provider.core.player" ] ]
+
+    vgr.dwh.manager.strategy.table.game:
+        class: VideoGamesRecords\DwhBundle\Manager\Strategy\Table\GameStrategy
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')"
+        ]
+        calls:
+            - [ setProvider, [ "@vgr.dwh.data_provider.core.game" ] ]
+
+    vgr.dwh.manager.strategy.table.team:
+        class: VideoGamesRecords\DwhBundle\Manager\Strategy\Table\TeamStrategy
+        arguments: [
+            "@=service('doctrine.orm.dwh_entity_manager')"
+        ]
+        calls:
+            - [ setProvider, [ "@vgr.dwh.data_provider.core.team" ] ]
