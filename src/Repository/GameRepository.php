@@ -3,19 +3,13 @@
 namespace VideoGamesRecords\DwhBundle\Repository;
 
 use DateTime;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Doctrine\Persistence\ManagerRegistry;
-use VideoGamesRecords\DwhBundle\Entity\Game;
 
-class GameRepository extends ServiceEntityRepository
+
+class GameRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Game::class);
-    }
-
     /**
      * @param DateTime $begin
      * @param DateTime $end

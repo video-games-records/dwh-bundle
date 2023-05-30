@@ -2,14 +2,8 @@
 
 namespace VideoGamesRecords\DwhBundle\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use VideoGamesRecords\DwhBundle\Entity\Team;
+use Doctrine\ORM\EntityRepository;
 
-class TeamRepository extends ServiceEntityRepository
+class TeamRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Team::class);
-    }
 }
