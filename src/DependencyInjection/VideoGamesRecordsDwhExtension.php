@@ -31,5 +31,6 @@ class VideoGamesRecordsDwhExtension extends Extension
         $loader->load('services/data_providers.yml');
         $loader->load('services/managers.yml');
         $loader->load('services/commands.yml');
+        $loader->load('services/controllers.yml');
     }
 }

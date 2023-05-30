@@ -1,18 +1,20 @@
 services:
     vgr.dwh.repository.game:
         class: VideoGamesRecords\DwhBundle\Repository\GameRepository
-        factory: ['@doctrine.orm.default_entity_manager', 'getRepository']
+        factory: ['@doctrine.orm.dwh_entity_manager', 'getRepository']
         arguments:
             - VideoGamesRecords\DwhBundle\Entity\Game
 
     vgr.dwh.repository.player:
         class: VideoGamesRecords\DwhBundle\Repository\PlayerRepository
-        factory: [ '@doctrine.orm.default_entity_manager', 'getRepository' ]
+        factory: [ '@doctrine.orm.dwh_entity_manager', 'getRepository' ]
         arguments:
             - VideoGamesRecords\DwhBundle\Entity\Player
 
     vgr.dwh.repository.team:
         class: VideoGamesRecords\DwhBundle\Repository\TeamRepository
-        factory: [ '@doctrine.orm.default_entity_manager', 'getRepository' ]
+        factory: [ '@doctrine.orm.dwh_entity_manager', 'getRepository' ]
         arguments:
             - VideoGamesRecords\DwhBundle\Entity\Team
+
+

@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: false
+        public: true
+
+    VideoGamesRecords\DwhBundle\Controller\PlayerController:
+        arguments:
+            - '@vgr.dwh.repository.player'
+        tags: ['controller.service_arguments']
