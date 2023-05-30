@@ -1,9 +1,16 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\DataProvider\Core;
+namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 
-class GameProvider extends AbstractTableProvider
+use VideoGamesRecords\DwhBundle\Contracts\Strategy\CoreStrategyInterface;
+
+class CoreGameStrategy extends AbstractTableProvider implements CoreStrategyInterface
 {
+    public function supports(string $name): bool
+    {
+        return $name === self::TYPE_GAME;
+    }
+
     /**
      * @return array
      */
@@ -45,5 +52,6 @@ class GameProvider extends AbstractTableProvider
 
         return $data;
     }
+
 }
 

@@ -1,16 +1,23 @@
 services:
-    vgr.dwh.data_provider.core.game:
-        class: VideoGamesRecords\DwhBundle\DataProvider\Core\GameProvider
+    vgr.dwh.data_provider.core:
+        class: VideoGamesRecords\DwhBundle\DataProvider\CoreProvider
+        calls:
+            - [ 'addStrategy', [ '@vgr.dwh.data_provider.strategy.core.game' ] ]
+            - [ 'addStrategy', [ '@vgr.dwh.data_provider.strategy.core.player' ] ]
+            - [ 'addStrategy', [ '@vgr.dwh.data_provider.strategy.core.team' ] ]
+
+    vgr.dwh.data_provider.strategy.core.game:
+        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core\CoreGameStrategy
         arguments:
             - '@doctrine.orm.entity_manager'
 
-    vgr.dwh.data_provider.core.player:
-        class: VideoGamesRecords\DwhBundle\DataProvider\Core\PlayerProvider
+    vgr.dwh.data_provider.strategy.core.player:
+        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core\CorePlayerStrategy
         arguments:
             - '@doctrine.orm.entity_manager'
 
-    vgr.dwh.data_provider.core.team:
-        class: VideoGamesRecords\DwhBundle\DataProvider\Core\TeamProvider
+    vgr.dwh.data_provider.strategy.core.team:
+        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core\CoreTeamStrategy
         arguments:
             - '@doctrine.orm.entity_manager'
 

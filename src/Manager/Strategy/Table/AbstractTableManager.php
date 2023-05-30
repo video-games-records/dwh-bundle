@@ -16,7 +16,7 @@ abstract class AbstractTableManager implements DwhInterface
         $this->em = $em;
     }
 
-    public function setProvider(CoreProviderInterface $provider)
+    public function setProvider(CoreProviderInterface $provider): void
     {
         $this->provider = $provider;
     }

@@ -12,7 +12,7 @@ services:
             "@=service('doctrine.orm.dwh_entity_manager')"
         ]
         calls:
-            - [ setProvider, [ "@vgr.dwh.data_provider.core.player" ] ]
+            - [ setProvider, [ "@vgr.dwh.data_provider.strategy.core.player" ] ]
 
     vgr.dwh.manager.strategy.table.game:
         class: VideoGamesRecords\DwhBundle\Manager\Strategy\Table\GameStrategy
@@ -20,7 +20,7 @@ services:
             "@=service('doctrine.orm.dwh_entity_manager')"
         ]
         calls:
-            - [ setProvider, [ "@vgr.dwh.data_provider.core.game" ] ]
+            - [ setProvider, [ "@vgr.dwh.data_provider.strategy.core.game" ] ]
 
     vgr.dwh.manager.strategy.table.team:
         class: VideoGamesRecords\DwhBundle\Manager\Strategy\Table\TeamStrategy
@@ -28,4 +28,4 @@ services:
             "@=service('doctrine.orm.dwh_entity_manager')"
         ]
         calls:
-            - [ setProvider, [ "@vgr.dwh.data_provider.core.team" ] ]
+            - [ setProvider, [ "@vgr.dwh.data_provider.strategy.core.team" ] ]

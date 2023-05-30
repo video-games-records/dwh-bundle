@@ -1,6 +1,6 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\DataProvider\Core;
+namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;

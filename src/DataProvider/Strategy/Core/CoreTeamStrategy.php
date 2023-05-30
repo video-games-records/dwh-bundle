@@ -1,11 +1,17 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\DataProvider\Core;
+namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 
 use DateTime;
+use VideoGamesRecords\DwhBundle\Contracts\Strategy\CoreStrategyInterface;
 
-class TeamProvider extends AbstractTableProvider
+class CoreTeamStrategy extends AbstractTableProvider implements CoreStrategyInterface
 {
+    public function supports(string $name): bool
+    {
+        return $name === self::TYPE_TEAM;
+    }
+
     /**
      * @return array
      */
