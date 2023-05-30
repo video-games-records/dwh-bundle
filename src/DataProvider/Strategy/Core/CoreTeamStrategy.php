@@ -5,7 +5,7 @@ namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 use DateTime;
 use VideoGamesRecords\DwhBundle\Contracts\Strategy\CoreStrategyInterface;
 
-class CoreTeamStrategy extends AbstractTableProvider implements CoreStrategyInterface
+class CoreTeamStrategy extends AbstractCoreProvider implements CoreStrategyInterface
 {
     public function supports(string $name): bool
     {
