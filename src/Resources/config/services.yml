@@ -1,8 +1,5 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-    VideoGamesRecords\DwhBundle\:
-        resource: '../../*'
-        exclude: '../../{DependencyInjection,Entity,Migrations,Service,Tests,Kernel.php}'
+        autowire: false
+        autoconfigure: false
+

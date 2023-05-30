@@ -21,13 +21,13 @@ services:
             - [ 'addStrategy', [ '@vgr.dwh.data_provider.strategy.top.player' ] ]
 
     vgr.dwh.data_provider.strategy.top.game:
-        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top\TopGameProvider
+        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top\TopGameStrategy
         arguments:
             - '@doctrine.orm.dwh_entity_manager'
             - '@doctrine.orm.entity_manager'
 
     vgr.dwh.data_provider.strategy.top.player:
-        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top\TopPlayerProvider
+        class: VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top\TopPlayerStrategy
         arguments:
             - '@doctrine.orm.dwh_entity_manager'
             - '@doctrine.orm.entity_manager'
