@@ -6,10 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use VideoGamesRecords\DwhBundle\Repository\PlayerRepository;
 
-/**
- * Class PlayerController
- */
-class PlayerController extends AbstractController
+class GetPositions extends AbstractController
 {
     private PlayerRepository $playerRepository;
 
@@ -18,12 +15,11 @@ class PlayerController extends AbstractController
         $this->playerRepository = $playerRepository;
     }
 
-
     /**
      * @param Request $request
      * @return array
      */
-    public function getPositions(Request $request): array
+    public function __invoke(Request $request): array
     {
         $idPlayer = $request->query->get('idPlayer', null);
         $object = $this->playerRepository->findOneBy(array('id' => $idPlayer), array('date' => 'DESC'));
@@ -59,31 +55,5 @@ class PlayerController extends AbstractController
             $object->getChartRank(29),
             $object->getChartRank(30),
         );
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function getMedalsByTime(Request $request): array
-    {
-        $idPlayer = $request->query->get('idPlayer', null);
-        $list = $this->playerRepository->findBy(array('id' => $idPlayer), array('date' => 'ASC'));
-
-        $return = [
-            'rank0' => [],
-            'rank1' => [],
-            'rank2' => [],
-            'rank3' => [],
-            'date' => [],
-        ];
-        foreach ($list as $object) {
-            $return['rank0'][] = $object->getChartRank0();
-            $return['rank1'][] = $object->getChartRank1();
-            $return['rank2'][] = $object->getChartRank2();
-            $return['rank3'][] = $object->getChartRank3();
-            $return['date'][] = $object->getDate();
-        }
-        return $return;
     }
 }

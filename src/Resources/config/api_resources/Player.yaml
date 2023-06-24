@@ -7,11 +7,11 @@ resources:
             get-positions:
                 method: 'GET'
                 path: '/dwh_players/get-positions'
-                controller: 'VideoGamesRecords\DwhBundle\Controller\PlayerController::getPositions'
+                controller: 'VideoGamesRecords\DwhBundle\Controller\Player\GetPositions'
             get-medals-by-time:
                 method: 'GET'
                 path: '/dwh_players/get-medals-by-time'
-                controller: 'VideoGamesRecords\DwhBundle\Controller\PlayerController::getMedalsByTime'
+                controller: 'VideoGamesRecords\DwhBundle\Controller\Player\GetMedalsByTime'
         itemOperations:
             get:
                 normalization_context: {'groups': [dwh.player.read]}
