@@ -24,7 +24,13 @@ class TopPlayerStrategy extends AbstractTopProvider implements TopStrategyInterf
      * @param integer  $limit
      * @return array
      */
-    public function getTop(DateTime $date1Begin, DateTime $date1End, DateTime $date2Begin, DateTime $date2End, int $limit = 20): array
+    public function getTop(
+        DateTime $date1Begin,
+        DateTime $date1End,
+        DateTime $date2Begin,
+        DateTime $date2End,
+        int $limit = 20
+    ): array
     {
         /** @var DwhPlayerRepository $dwhPlayerRepository */
         $dwhPlayerRepository = $this->dwhEntityManager->getRepository('VideoGamesRecords\DwhBundle\Entity\Player');

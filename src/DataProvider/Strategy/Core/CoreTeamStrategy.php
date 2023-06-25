@@ -73,4 +73,3 @@ class CoreTeamStrategy extends AbstractCoreProvider implements CoreStrategyInter
         return $data;
     }
 }
-
