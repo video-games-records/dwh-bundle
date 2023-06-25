@@ -1,6 +1,6 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\Controller;
+namespace VideoGamesRecords\DwhBundle\Controller\Player;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

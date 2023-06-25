@@ -1,6 +1,6 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\Controller;
+namespace VideoGamesRecords\DwhBundle\Controller\Player;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ class GetMedalsByTime extends AbstractController
      * @param Request $request
      * @return array
      */
-    public function getMedalsByTime(Request $request): array
+    public function __invoke(Request $request): array
     {
         $idPlayer = $request->query->get('idPlayer', null);
         $list = $this->playerRepository->findBy(array('id' => $idPlayer), array('date' => 'ASC'));
