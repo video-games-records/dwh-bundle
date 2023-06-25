@@ -88,4 +88,3 @@ class CorePlayerStrategy extends AbstractCoreProvider implements CoreStrategyInt
         return $data;
     }
 }
-

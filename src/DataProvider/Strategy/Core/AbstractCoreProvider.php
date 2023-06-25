@@ -34,4 +34,3 @@ class AbstractCoreProvider implements DwhInterface, CoreProviderInterface
         return array();
     }
 }
-

@@ -54,4 +54,3 @@ class CoreGameStrategy extends AbstractCoreProvider implements CoreStrategyInter
     }
 
 }
-

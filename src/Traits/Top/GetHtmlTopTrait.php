@@ -145,10 +145,16 @@ trait GetHtmlTopTrait
                 if ($row['oldRank'] > $nbGame) {
                     $col = '<span class="article-top--new"><abbr title="New">N</abbr></span>';
                 } else {
-                    $col = sprintf('<span class="article-top--up">+%d <span class="screen-reader-text">position</span></span>', $row['oldRank'] - $row['rank']);
+                    $col = sprintf(
+                        '<span class="article-top--up">+%d <span class="screen-reader-text">position</span></span>',
+                        $row['oldRank'] - $row['rank']
+                    );
                 }
             } elseif ($row['rank'] > $row['oldRank']) {
-                $col = sprintf('<span class="article-top--down">-%d <span class="screen-reader-text">position</span></span>', $row['rank'] - $row['oldRank']);
+                $col = sprintf(
+                    '<span class="article-top--down">-%d <span class="screen-reader-text">position</span></span>',
+                    $row['rank'] - $row['oldRank']
+                );
             } else {
                 $col = '<span class="article-top--equal"><abbr title="Same position">=</abbr></span>';
             }
