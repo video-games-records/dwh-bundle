@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\Traits\Top;
 
 trait GetHtmlTopTrait
 {
-
     /**
      * @param        $data
      * @param string $locale

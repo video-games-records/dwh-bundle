@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top;
 
 use DateTime;
@@ -20,9 +22,12 @@ class AbstractTopProvider implements DwhInterface, TopProviderInterface
 
 
     public function getTop(
-        DateTime $date1Begin, DateTime $date1End, DateTime $date2Begin, DateTime $date2End, int $limit = 20
-    ): array
-    {
+        DateTime $date1Begin,
+        DateTime $date1End,
+        DateTime $date2Begin,
+        DateTime $date2End,
+        int $limit = 20
+    ): array {
         return array();
     }
 }

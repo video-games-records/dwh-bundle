@@ -1,7 +1,0 @@
-services:
-    VideoGamesRecords\DwhBundle\Command\TableCommand:
-        class: VideoGamesRecords\DwhBundle\Command\TableCommand
-        arguments:
-            - '@vgr.dwh.manager.table'
-        tags:
-            - { name: 'console.command', command: 'vgr-dwh:table' }

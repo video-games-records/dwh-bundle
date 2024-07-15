@@ -1,7 +1,8 @@
 <?php
 
-namespace VideoGamesRecords\DwhBundle\Contracts\Strategy;
+declare(strict_types=1);
 
+namespace VideoGamesRecords\DwhBundle\Contracts\Strategy;
 
 use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
 

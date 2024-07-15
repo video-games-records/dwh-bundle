@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 
 use DateTime;
+use Doctrine\DBAL\Exception;
 use VideoGamesRecords\DwhBundle\Contracts\Strategy\CoreStrategyInterface;
 
 class CorePlayerStrategy extends AbstractCoreProvider implements CoreStrategyInterface
@@ -12,23 +15,24 @@ class CorePlayerStrategy extends AbstractCoreProvider implements CoreStrategyInt
         return $name === self::TYPE_PLAYER;
     }
 
+
     /**
-     * @return array
+     * @throws Exception
      */
     public function getData(): array
     {
         $conn = $this->em->getConnection();
         $sql = "SELECT p.id,
-                   p.chartRank0,
-                   p.chartRank1,
-                   p.chartRank2,
-                   p.chartRank3,
-                   p.pointChart,
-                   p.rankPointChart,
-                   p.rankMedal,
-                   p.nbChart,
-                   p.pointGame,
-                   p.rankPointGame                   
+                   p.chart_rank0,
+                   p.chart_rank1,
+                   p.chart_rank2,
+                   p.chart_rank3,
+                   p.point_chart,
+                   p.rank_point_chart,
+                   p.rank_medal,
+                   p.nb_chart,
+                   p.point_game,
+                   p.rank_point_game                   
             FROM vgr_player p
             WHERE p.id <> 0";
 

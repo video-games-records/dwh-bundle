@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 
 use VideoGamesRecords\DwhBundle\Contracts\Strategy\CoreStrategyInterface;
@@ -52,5 +54,4 @@ class CoreGameStrategy extends AbstractCoreProvider implements CoreStrategyInter
 
         return $data;
     }
-
 }

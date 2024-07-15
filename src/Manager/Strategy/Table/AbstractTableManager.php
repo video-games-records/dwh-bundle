@@ -1,10 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\Manager\Strategy\Table;
 
 use Doctrine\ORM\EntityManager;
 use VideoGamesRecords\DwhBundle\Contracts\DataProvider\CoreProviderInterface;
 use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
-
 
 abstract class AbstractTableManager implements DwhInterface
 {

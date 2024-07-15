@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Top;
 
 use DateTime;
@@ -11,7 +14,6 @@ use VideoGamesRecords\DwhBundle\Repository\GameRepository as DwhGameRepository;
 
 class TopGameStrategy extends AbstractTopProvider implements TopStrategyInterface
 {
-
     public function supports(string $name): bool
     {
         return $name == self::TYPE_GAME;
@@ -31,8 +33,7 @@ class TopGameStrategy extends AbstractTopProvider implements TopStrategyInterfac
         DateTime $date2Begin,
         DateTime $date2End,
         int $limit = 20
-    ): array
-    {
+    ): array {
         /** @var DwhGameRepository $dwhGameRepository */
         $dwhGameRepository = $this->dwhEntityManager->getRepository('VideoGamesRecords\DwhBundle\Entity\Game');
 
@@ -70,12 +71,14 @@ class TopGameStrategy extends AbstractTopProvider implements TopStrategyInterfac
             $nbPostFromList += $gameList1[$i]['nb'];
         }
 
+        $nbGame =  0;
         try {
             $nbGame = $dwhGameRepository->getTotalNbGame($date1Begin, $date1End);
         } catch (NoResultException | NonUniqueResultException $e) {
             // OK
         }
 
+        $nbTotalPost = 0;
         try {
             $nbTotalPost = $dwhGameRepository->getTotalNbPostDay($date1Begin, $date1End);
         } catch (NoResultException | NonUniqueResultException $e) {

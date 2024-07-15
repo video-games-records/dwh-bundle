@@ -1,0 +1,21 @@
+services:
+  vgr.dwh.creator.top.week:
+    class: VideoGamesRecords\DwhBundle\Creator\TopCreator
+    arguments:
+      - '@vgr.dwh.data_provider.top'
+      - 'P7D'
+      - 20
+
+  vgr.dwh.creator.top.month:
+    class: VideoGamesRecords\DwhBundle\Creator\TopCreator
+    arguments:
+      - '@vgr.dwh.data_provider.top'
+      - 'P1M'
+      - 50
+
+  vgr.dwh.creator.top.year:
+    class: VideoGamesRecords\DwhBundle\Creator\TopCreator
+    arguments:
+      - '@vgr.dwh.data_provider.top'
+      - 'P1Y'
+      - 100

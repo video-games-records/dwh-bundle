@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\DataProvider;
 
+use DomainException;
 use VideoGamesRecords\DwhBundle\Contracts\Strategy\TopStrategyInterface;
 
 class TopProvider
@@ -18,7 +21,7 @@ class TopProvider
             }
         }
 
-        throw new \DomainException(sprintf('Unable to find a strategy to type [%s]', $name));
+        throw new DomainException(sprintf('Unable to find a strategy to type [%s]', $name));
     }
 
     /**
