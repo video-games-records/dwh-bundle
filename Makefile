@@ -14,7 +14,7 @@ phpstan: ##
 	composer run lint:phpstan -- --memory-limit=1G
 
 phpcs: ##
-	clear
+	composer run lint:phpcs
 
 phpcs-fix:
 	composer run lint:phpcs:fix

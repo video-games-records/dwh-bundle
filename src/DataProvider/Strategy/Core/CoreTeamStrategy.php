@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\DataProvider\Strategy\Core;
 
 use DateTime;
+use Doctrine\DBAL\Exception;
 use VideoGamesRecords\DwhBundle\Contracts\Strategy\CoreStrategyInterface;
 
 class CoreTeamStrategy extends AbstractCoreProvider implements CoreStrategyInterface
@@ -12,30 +15,31 @@ class CoreTeamStrategy extends AbstractCoreProvider implements CoreStrategyInter
         return $name === self::TYPE_TEAM;
     }
 
+
     /**
-     * @return array
+     * @throws Exception
      */
     public function getData(): array
     {
         $conn = $this->em->getConnection();
         $sql = "SELECT t.id,
-                   t.pointChart,
-                   t.pointBadge,
-                   t.chartRank0,
-                   t.chartRank1,
-                   t.chartRank2,
-                   t.chartRank3,
-                   t.rankPointChart,
-                   t.rankMedal,
-                   t.rankBadge,
-                   t.rankCup,
-                   t.gameRank0,
-                   t.gameRank1,
-                   t.gameRank2,
-                   t.gameRank3,
-                   t.nbMasterBadge,
-                   t.pointGame,
-                   t.rankPointGame                  
+                   t.point_chart,
+                   t.point_badge,
+                   t.chart_rank0,
+                   t.chart_rank1,
+                   t.chart_rank2,
+                   t.chart_rank3,
+                   t.rank_point_chart,
+                   t.rank_medal,
+                   t.rank_badge,
+                   t.rank_cup,
+                   t.game_rank0,
+                   t.game_rank1,
+                   t.game_rank2,
+                   t.game_rank3,
+                   t.nb_master_badge,
+                   t.point_game,
+                   t.rank_point_game                  
             FROM vgr_team t";
 
         $stmt = $conn->prepare($sql);

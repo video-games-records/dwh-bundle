@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\Manager\Strategy\Table;
 
 use DateInterval;
@@ -7,10 +10,8 @@ use Exception;
 use VideoGamesRecords\DwhBundle\Contracts\Strategy\TableStrategyInterface;
 use VideoGamesRecords\DwhBundle\Entity\Player as DwhPlayer;
 
-
 class PlayerStrategy extends AbstractTableManager implements TableStrategyInterface
 {
-
     public function supports(string $name): bool
     {
         return $name === self::TYPE_PLAYER;
@@ -42,6 +43,7 @@ class PlayerStrategy extends AbstractTableManager implements TableStrategyInterf
                 }
             }
             $this->em->persist($dwhPlayer);
+            $this->em->flush();
         }
 
         $this->em->flush();

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\Manager\Strategy\Table;
 
 use DateInterval;
@@ -10,7 +13,6 @@ use VideoGamesRecords\DwhBundle\Entity\Game as DwhGame;
 
 class GameStrategy extends AbstractTableManager implements TableStrategyInterface
 {
-
     public function supports(string $name): bool
     {
         return $name === self::TYPE_GAME;

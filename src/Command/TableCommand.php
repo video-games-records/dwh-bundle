@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\Command;
 
 use Exception;
@@ -7,6 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
 use VideoGamesRecords\DwhBundle\Manager\TableManager;
 
@@ -16,13 +20,15 @@ class TableCommand extends Command implements DwhInterface
 
     private TableManager $tableManager;
 
-    public function __construct(TableManager $tableManager)
-    {
+    public function __construct(
+        #[Autowire(service: 'vgr.dwh.manager.table')]
+        TableManager $tableManager
+    ) {
         $this->tableManager = $tableManager;
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('vgr-dwh:table')

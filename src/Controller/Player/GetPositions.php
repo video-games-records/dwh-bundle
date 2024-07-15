@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VideoGamesRecords\DwhBundle\Controller\Player;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use VideoGamesRecords\CoreBundle\Entity\Player;
 use VideoGamesRecords\DwhBundle\Repository\PlayerRepository;
 
 class GetPositions extends AbstractController
@@ -16,13 +18,12 @@ class GetPositions extends AbstractController
     }
 
     /**
-     * @param Request $request
+     * @param Player $player
      * @return array
      */
-    public function __invoke(Request $request): array
+    public function __invoke(Player $player): array
     {
-        $idPlayer = $request->query->get('idPlayer', null);
-        $object = $this->playerRepository->findOneBy(array('id' => $idPlayer), array('date' => 'DESC'));
+        $object = $this->playerRepository->findOneBy(array('id' => $player->getId()), array('date' => 'DESC'));
         return array(
             $object->getChartRank1(),
             $object->getChartRank2(),
