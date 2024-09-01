@@ -6,6 +6,7 @@ namespace VideoGamesRecords\DwhBundle\Command;
 
 use Exception;
 use InvalidArgumentException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,10 +15,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use VideoGamesRecords\DwhBundle\Contracts\DwhInterface;
 use VideoGamesRecords\DwhBundle\Manager\TableManager;
 
+#[AsCommand(
+    name: 'vgr-dwh:table',
+    description: 'Command to update table'
+)]
 class TableCommand extends Command implements DwhInterface
 {
-    protected static $defaultName = 'vgr-dwh:table';
-
     private TableManager $tableManager;
 
     public function __construct(
@@ -31,8 +34,6 @@ class TableCommand extends Command implements DwhInterface
     protected function configure(): void
     {
         $this
-            ->setName('vgr-dwh:table')
-            ->setDescription('Command to update table')
             ->addArgument(
                 'type',
                 InputArgument::REQUIRED,
