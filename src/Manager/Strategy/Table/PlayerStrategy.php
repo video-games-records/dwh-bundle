@@ -35,7 +35,17 @@ class PlayerStrategy extends AbstractTableManager implements TableStrategyInterf
             $idPlayer = $row['id'];
             $dwhPlayer = new DwhPlayer();
             $dwhPlayer->setDate($date1->format('Y-m-d'));
-            $dwhPlayer->setFromArray($row);
+            $dwhPlayer->setId($row['id']);
+            $dwhPlayer->setChartRank0($row['chart_rank0']);
+            $dwhPlayer->setChartRank1($row['chart_rank1']);
+            $dwhPlayer->setChartRank2($row['chart_rank2']);
+            $dwhPlayer->setChartRank3($row['chart_rank3']);
+            $dwhPlayer->setPointChart($row['point_chart']);
+            $dwhPlayer->setRankPointChart($row['rank_point_chart']);
+            $dwhPlayer->setRankMedal($row['rank_medal']);
+            $dwhPlayer->setNbChart($row['nb_chart']);
+            $dwhPlayer->setPointGame($row['point_game']);
+            $dwhPlayer->setRankPointGame($row['rank_point_game']);
             $dwhPlayer->setNbPostDay((isset($data1[$idPlayer])) ? $data1[$idPlayer] : 0);
             if (isset($data2[$idPlayer])) {
                 foreach ($data2[$idPlayer] as $key => $value) {
