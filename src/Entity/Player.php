@@ -133,11 +133,4 @@ class Player
         $var = 'chartRank' . $rank;
         return $this->$var;
     }
-
-    public function setFromArray(array $row): void
-    {
-        foreach ($row as $key => $value) {
-            $this->$key = $value;
-        }
-    }
 }
