@@ -6,9 +6,15 @@ namespace VideoGamesRecords\DwhBundle\Scheduler\Message;
 
 class UpdateTable
 {
-    private string $target = '';
+    private string $target;
 
-    private string $function = 'process';
+    private string $function;
+
+    public function __construct(string $target, string $function = 'process')
+    {
+        $this->target = $target;
+        $this->function = $function;
+    }
 
     public function getTarget(): string
     {
