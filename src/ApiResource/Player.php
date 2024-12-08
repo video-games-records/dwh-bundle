@@ -20,7 +20,7 @@ use VideoGamesRecords\DwhBundle\Controller\Player\GetMedalsByTime;
                 summary: 'Return player dwh stats positions',
                 description: 'Return player dwh stats positions',
             ),
-            openapiContext: [
+            /*openapiContext: [
                 'parameters' => [
                     [
                         'name' => 'id',
@@ -28,7 +28,7 @@ use VideoGamesRecords\DwhBundle\Controller\Player\GetMedalsByTime;
                         'type' => 'int'
                     ]
                 ]
-            ]
+            ]*/
         ),
         new Get(
             uriTemplate: '/players/{id}/get-medals-by-time',
@@ -38,7 +38,7 @@ use VideoGamesRecords\DwhBundle\Controller\Player\GetMedalsByTime;
                 summary: 'Return player dwh stats medals',
                 description: 'Return player dwh stats medals',
             ),
-            openapiContext: [
+            /*openapiContext: [
                 'parameters' => [
                     [
                         'name' => 'id',
@@ -46,7 +46,7 @@ use VideoGamesRecords\DwhBundle\Controller\Player\GetMedalsByTime;
                         'type' => 'int'
                     ]
                 ]
-            ]
+            ]*/
         )
     ],
 )]
