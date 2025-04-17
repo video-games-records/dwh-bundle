@@ -17,12 +17,12 @@
         "api-platform/symfony": "^4.0",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "~2.0",
-        "symfony/config": "^6.4",
-        "symfony/console": "^6.4",
-        "symfony/dependency-injection": "^6.4",
-        "symfony/http-kernel": "^6.4",
-        "symfony/messenger": "^6.4",
-        "symfony/scheduler": "^6.4",
+        "symfony/config": "^6.4 | ^7.2",
+        "symfony/console": "^6.4 | ^7.2",
+        "symfony/dependency-injection": "^6.4 | ^7.2",
+        "symfony/http-kernel": "^6.4 | ^7.2",
+        "symfony/messenger": "^6.4 | ^7.2",
+        "symfony/scheduler": "^6.4 | ^7.2",
         "video-games-records/core-bundle": "dev-main"
     },
     "require-dev": {
@@ -31,9 +31,9 @@
         "phpstan/phpstan-doctrine": "^1.3",
         "phpstan/phpstan-symfony": "^1.3",
         "squizlabs/php_codesniffer": "^3.7",
-        "symfony/browser-kit": "^6.4",
+        "symfony/browser-kit": "^6.4 | ^7.2",
         "symfony/phpunit-bridge": "^7.0",
-        "symfony/web-profiler-bundle": "^6.4"
+        "symfony/web-profiler-bundle": "^6.4 | ^7.2"
     },
     "autoload": {
         "psr-4": {
